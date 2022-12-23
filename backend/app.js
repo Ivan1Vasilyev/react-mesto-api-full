@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-// dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -8,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { errors } = require('celebrate');
-const cors = require('cors');
+// const cors = require('cors');
 const router = require('./routes');
 const { DEFAULT_ERROR, NOT_EXISTS_MESSAGE } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found');
@@ -23,21 +22,44 @@ const limiter = rateLimit({
   max: 100,
 });
 
-const allowedCors = ['http://shaloban.students.nomoredomains.club/', 'localhost:3000'];
+const allowedCors = [
+  'http://shaloban.students.nomoredomains.club/',
+  'http://api.shaloban.students.nomoredomains.club/',
+  'localhost:3000',
+];
 
-const corsOptions = {
-  origin: allowedCors,
-  optionsSuccessStatus: 200,
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: allowedCors,
+//   optionsSuccessStatus: 200,
+//   credentials: true,
+// };
 
-app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  const { method } = req;
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+  const requestHeaders = req.headers['access-control-request-headers'];
+
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
+  next();
+});
+
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(cors(corsOptions));
 app.use(helmet());
 app.use(limiter);
 app.use(cookieParser());
 app.use(express.json());
 app.use(requestLogger);
-app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(router);
 app.use('*', (req, res, next) => {
   next(new NotFoundError(NOT_EXISTS_MESSAGE));

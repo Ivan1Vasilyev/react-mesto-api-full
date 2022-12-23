@@ -52,7 +52,7 @@ const App = () => {
   const openEditAvatarPopup = useCallback(() => setEditAvatarPopup(true), []);
   const openEditProfilePopup = useCallback(() => setEditProfilePopup(true), []);
   const openAddPlacePopup = useCallback(() => setAddPlacePopup(true), []);
-  const openDeleteCardPopup = useCallback(card => {
+  const openDeleteCardPopup = useCallback((card) => {
     setConfirmPopupOpen(true);
     setConfirmCallback(() => () => handleDeleteCard(card._id));
   }, []);
@@ -61,13 +61,13 @@ const App = () => {
     setConfirmCallback(() => onSignOut);
   }, []);
 
-  const showFullImageClick = useCallback(card => {
+  const showFullImageClick = useCallback((card) => {
     setImagePopup(true);
     setSelectedCard(card);
   }, []);
 
   const handleUpdateUser = useCallback(
-    userData =>
+    (userData) =>
       uxWrap(setTextLoading, async () => {
         try {
           const updatedData = await api.editUserData(userData);
@@ -81,7 +81,7 @@ const App = () => {
   );
 
   const handleAddPlace = useCallback(
-    placeData =>
+    (placeData) =>
       uxWrap(setTextLoading, async () => {
         try {
           const newCard = await api.addCard(placeData);
@@ -95,7 +95,7 @@ const App = () => {
   );
 
   const handleUpdateAvatar = useCallback(
-    newAvatar =>
+    (newAvatar) =>
       uxWrap(setTextLoading, async () => {
         try {
           const data = await api.setUserAvatar(newAvatar);
@@ -108,23 +108,23 @@ const App = () => {
     []
   );
 
-  const handleCardLike = useCallback(async card => {
+  const handleCardLike = useCallback(async (card) => {
     try {
       const updatedCard = await api.toggleLike(card);
-      setCards(state => state.map(c => (c._id === card._id ? updatedCard : c)));
+      setCards((state) => state.map((c) => (c._id === card._id ? updatedCard : c)));
     } catch (err) {
       handleError(err, 'Ошибка загрузки данных лайка карточки.');
     }
   }, []);
 
   const handleDeleteCard = useCallback(
-    cardId =>
+    (cardId) =>
       uxWrap(
         setTextLoading,
         async () => {
           try {
             await api.deleteCard(cardId);
-            setCards(cards => cards.filter(c => c._id !== cardId));
+            setCards((cards) => cards.filter((c) => c._id !== cardId));
             closeAllPopups();
           } catch (err) {
             handleError(err, 'Ошибка удаления карточки.');
@@ -135,12 +135,12 @@ const App = () => {
     []
   );
 
-  const authenticate = useCallback(data => {
+  const authenticate = useCallback((data) => {
     localStorage.setItem('jwt', data.token);
   }, []);
 
   const onLogin = useCallback(
-    userData =>
+    (userData) =>
       uxWrap(
         setTextLoading,
         async () => {
@@ -160,7 +160,7 @@ const App = () => {
     []
   );
 
-  const onRegister = useCallback(userData => {
+  const onRegister = useCallback((userData) => {
     uxWrap(
       setTextLoading,
       async () => {
@@ -169,7 +169,7 @@ const App = () => {
           if (res) {
             setIsTooltipOnError(false);
             setIsInfoTooltipOpen(true);
-            history.push('/sign-in');
+            history.push('/signin');
           }
         } catch (err) {
           const errorMessage = await handleError(err);
@@ -238,14 +238,14 @@ const App = () => {
               onCardLike={handleCardLike}
               onCardDelete={openDeleteCardPopup}
             />
-            <Route path="/sign-in">
+            <Route path="/signin">
               <Login name="login" loggedIn={loggedIn} onSubmit={onLogin} />
             </Route>
-            <Route path="/sign-up">
+            <Route path="/signup">
               <Register name="register" loggedIn={loggedIn} onSubmit={onRegister} />
             </Route>
             <Route exact path="/">
-              {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
+              {loggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
             </Route>
             <Route path="*">
               <PageNotFound />

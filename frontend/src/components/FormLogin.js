@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { PopupOnLoadContext } from '../contexts/PopupOnLoadContext';
 import useForm from '../hooks/useForm';
 
-const FormLogin = props => {
+const FormLogin = (props) => {
   const textLoading = useContext(PopupOnLoadContext);
   const [inputsValidate, setInputsValidate] = useState({ email: '', password: '' });
   const [isFormInvalid, setIsFormInvalid] = useState(true);
   const { values, handleChange } = useForm({ email: '', password: '' });
 
   const handleFormValidation = useCallback(
-    e => {
+    (e) => {
       const { name, validationMessage } = e.target;
       setInputsValidate({
         ...inputsValidate,
@@ -22,7 +22,7 @@ const FormLogin = props => {
   );
 
   const handleSubmit = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       props.onSubmit(values);
       setIsFormInvalid(true);
@@ -69,7 +69,7 @@ const FormLogin = props => {
       {props.isRegister && (
         <p className="form-login__caption">
           {'Уже зарегистрированы? '}
-          <Link to="/sign-in" className="form-login__link">
+          <Link to="/signin" className="form-login__link">
             Войти
           </Link>
         </p>
