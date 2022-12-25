@@ -1,8 +1,8 @@
-const baseUrl = 'https://auth.nomoreparties.co';
+const baseUrl = 'https://api.shaloban.students.nomoredomains.club';
 
-const checkResponse = res => (res.ok ? res.json() : Promise.reject(res.json()));
+const checkResponse = (res) => (res.ok ? res.json() : Promise.reject(res.json()));
 
-export const register = async userData => {
+export const register = async (userData) => {
   const response = await fetch(`${baseUrl}/signup`, {
     method: 'POST',
     headers: {
@@ -13,7 +13,7 @@ export const register = async userData => {
   return checkResponse(response);
 };
 
-export const login = async userData => {
+export const login = async (userData) => {
   const response = await fetch(`${baseUrl}/signin`, {
     method: 'POST',
     headers: {
@@ -24,7 +24,7 @@ export const login = async userData => {
   return checkResponse(response);
 };
 
-export const checkToken = async token => {
+export const checkToken = async (token) => {
   const response = await fetch(`${baseUrl}/users/me`, {
     method: 'GET',
     headers: {
