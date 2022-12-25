@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { errors } = require('celebrate');
-// const cors = require('cors');
+const cors = require('cors');
 const router = require('./routes');
 const { DEFAULT_ERROR, NOT_EXISTS_MESSAGE } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found');
@@ -35,27 +35,27 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-  console.log(origin);
-  const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-  const requestHeaders = req.headers['access-control-request-headers'];
+// app.use((req, res, next) => {
+//   const { origin } = req.headers;
+//   console.log(origin);
+//   const { method } = req;
+//   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+//   const requestHeaders = req.headers['access-control-request-headers'];
 
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
-  }
+//   if (method === 'OPTIONS') {
+//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+//     res.header('Access-Control-Allow-Headers', requestHeaders);
+//     return res.end();
+//   }
 
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
+//   if (allowedCors.includes(origin)) {
+//     res.header('Access-Control-Allow-Origin', origin);
+//   }
 
-  next();
-});
+//   next();
+// });
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(limiter);
 app.use(cookieParser());
