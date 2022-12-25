@@ -9,7 +9,7 @@ const NotAuthorizedError = require('../errors/not-authorized');
 const SameEmailError = require('../errors/same-email');
 const { getErrorMessages } = require('../utils/handle-errors');
 
-const { JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const findUser = async (res, next, id) => {
   try {
@@ -117,7 +117,11 @@ const login = async (req, res, next) => {
       return next(new NotAuthorizedError('Неправильные почта или пароль'));
     }
 
-    const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign(
+      { _id: user._id },
+      NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key',
+      { expiresIn: '7d' },
+    );
     return res
       .cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
