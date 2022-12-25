@@ -135,9 +135,9 @@ const App = () => {
     []
   );
 
-  const authenticate = useCallback((data) => {
-    localStorage.setItem('jwt', data.token);
-  }, []);
+  // const authenticate = useCallback((data) => {
+  //   localStorage.setItem('jwt', data.token);
+  // }, []);
 
   const onLogin = useCallback(
     (userData) =>
@@ -146,8 +146,9 @@ const App = () => {
         async () => {
           try {
             const res = await userAuth.login(userData);
-            authenticate(res);
-            checkToken();
+            // authenticate(res);
+            // checkToken();
+            setLoggedIn(true);
           } catch (err) {
             const errorMessage = await handleError(err);
             setIsTooltipOnError(true);
@@ -196,7 +197,7 @@ const App = () => {
   }, []);
 
   const onSignOut = useCallback(() => {
-    localStorage.removeItem('jwt');
+    // localStorage.removeItem('jwt');
     setLoggedIn(false);
     closeAllPopups();
   }, []);
@@ -217,7 +218,7 @@ const App = () => {
   }, [loggedIn]);
 
   useEffect(() => {
-    checkToken();
+    // checkToken();
   }, []);
 
   return (
