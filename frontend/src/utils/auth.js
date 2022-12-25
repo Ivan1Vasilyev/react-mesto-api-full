@@ -20,7 +20,7 @@ export const login = async (userData) => {
     headers: {
       'Content-Type': 'application/json',
       origin: baseUrl,
-      'Access-Control-Allow-Credentials': true,
+      // 'Access-Control-Allow-Credentials': true,
     },
     body: JSON.stringify(userData),
   });
@@ -34,7 +34,7 @@ export const checkToken = async (token) => {
     headers: {
       'Content-Type': 'application/json',
       origin: baseUrl,
-      'Access-Control-Allow-Credentials': true,
+      // 'Access-Control-Allow-Credentials': true,
     },
   });
   return checkResponse(response);
