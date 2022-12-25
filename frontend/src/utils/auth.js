@@ -19,6 +19,7 @@ export const login = async (userData) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      origin: baseUrl,
     },
     body: JSON.stringify(userData),
   });
@@ -30,7 +31,7 @@ export const checkToken = async (token) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      origin: baseUrl,
     },
   });
   return checkResponse(response);
