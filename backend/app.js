@@ -22,8 +22,10 @@ const limiter = rateLimit({
 });
 
 const allowedCors = [
-  'http://shaloban.students.nomoredomains.club/',
-  'http://api.shaloban.students.nomoredomains.club/',
+  'http://shaloban.students.nomoredomains.club',
+  'https://shaloban.students.nomoredomains.club',
+  'http://api.shaloban.students.nomoredomains.club',
+  'https://api.shaloban.students.nomoredomains.club',
   'localhost:3000',
 ];
 

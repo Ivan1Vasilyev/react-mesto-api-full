@@ -7,6 +7,7 @@ export const register = async (userData) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      origin: baseUrl,
     },
     body: JSON.stringify(userData),
   });
