@@ -146,6 +146,8 @@ const App = () => {
         async () => {
           try {
             const res = await userAuth.login(userData);
+            console.log(res);
+            console.log(document.cookie);
             authenticate(res);
             checkToken();
           } catch (err) {
