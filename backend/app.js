@@ -26,7 +26,7 @@ const allowedCors = [
   'https://shaloban.students.nomoredomains.club',
   'http://api.shaloban.students.nomoredomains.club',
   'https://api.shaloban.students.nomoredomains.club',
-  'localhost:3000',
+  'http://localhost:3000',
 ];
 
 const corsOptions = {

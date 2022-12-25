@@ -127,8 +127,9 @@ const login = async (req, res, next) => {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         sameSite: true,
+        secure: true,
       })
-      .json({ message: 'Токен jwt передан в cookie' });
+      .json({ message: 'Вы авторизированы!' });
   } catch (e) {
     return next(e);
   }
