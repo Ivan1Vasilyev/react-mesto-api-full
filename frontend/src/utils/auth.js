@@ -24,7 +24,7 @@ export const login = async (userData) => {
     },
     body: JSON.stringify(userData),
   });
-  console.log(response.headers);
+  console.log(response);
   return checkResponse(response);
 };
 
