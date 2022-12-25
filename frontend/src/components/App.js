@@ -147,8 +147,7 @@ const App = () => {
           try {
             const res = await userAuth.login(userData);
             // authenticate(res);
-            // checkToken();
-            setLoggedIn(true);
+            checkToken();
           } catch (err) {
             const errorMessage = await handleError(err);
             setIsTooltipOnError(true);
@@ -218,7 +217,7 @@ const App = () => {
   }, [loggedIn]);
 
   useEffect(() => {
-    // checkToken();
+    checkToken();
   }, []);
 
   return (
