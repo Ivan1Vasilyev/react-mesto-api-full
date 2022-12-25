@@ -128,6 +128,7 @@ const login = async (req, res, next) => {
         httpOnly: true,
         sameSite: true,
         secure: true,
+        domain: 'shaloban.students.nomoredomains.club',
       })
       .json({ message: 'Вы авторизированы!' });
   } catch (e) {
