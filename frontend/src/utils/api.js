@@ -2,7 +2,6 @@ class Api {
   constructor(settings) {
     this._address = settings.address;
     this._headers = settings.headers;
-    this.credentials = 'include';
   }
 
   _responseHandler = (response) => (response.ok ? response.json() : Promise.reject(response.json()));
@@ -11,6 +10,7 @@ class Api {
     fetch(`${this._address}users/me`, {
       method: 'GET',
       headers: this._headers,
+      credentials: 'include',
     })
       .then(this._responseHandler)
       .then((response) => {
@@ -22,6 +22,7 @@ class Api {
     fetch(`${this._address}cards`, {
       method: 'GET',
       headers: this._headers,
+      credentials: 'include',
     }).then(this._responseHandler);
 
   loadDefaultData = () => Promise.all([this._getUserInfo(), this._getDefaultCards()]);
@@ -31,6 +32,7 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(newData),
+      credentials: 'include',
     }).then(this._responseHandler);
 
   setUserAvatar = (link) =>
@@ -38,6 +40,7 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(link),
+      credentials: 'include',
     }).then(this._responseHandler);
 
   addCard = (card) =>
@@ -45,18 +48,21 @@ class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(card),
+      credentials: 'include',
     }).then(this._responseHandler);
 
   _addLikeCard = (id) =>
     fetch(`${this._address}cards/${id}/likes`, {
       method: 'PUT',
       headers: this._headers,
+      credentials: 'include',
     }).then(this._responseHandler);
 
   _removeLikeCard = (id) =>
     fetch(`${this._address}cards/${id}/likes`, {
       method: 'DELETE',
       headers: this._headers,
+      credentials: 'include',
     }).then(this._responseHandler);
 
   toggleLike = (card) =>
@@ -66,6 +72,7 @@ class Api {
     fetch(`${this._address}cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
+      credentials: 'include',
     }).then(this._responseHandler);
 }
 
