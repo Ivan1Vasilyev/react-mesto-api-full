@@ -2,6 +2,7 @@ class Api {
   constructor(settings) {
     this._address = settings.address;
     this._headers = settings.headers;
+    this.credentials = 'include';
   }
 
   _responseHandler = (response) => (response.ok ? response.json() : Promise.reject(response.json()));

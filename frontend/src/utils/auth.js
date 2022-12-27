@@ -23,6 +23,7 @@ export const login = async (userData) => {
       'Access-Control-Allow-Credentials': true,
     },
     body: JSON.stringify(userData),
+    credentials: 'include',
   });
   return checkResponse(response);
 };
@@ -35,6 +36,7 @@ export const checkToken = async (token) => {
       origin: baseUrl,
       'Access-Control-Allow-Credentials': true,
     },
+    credentials: 'include',
   });
   return checkResponse(response);
 };
