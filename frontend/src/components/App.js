@@ -195,7 +195,6 @@ const App = () => {
   }, []);
 
   const onSignOut = useCallback(() => {
-    // localStorage.removeItem('jwt');
     setLoggedIn(false);
     closeAllPopups();
   }, []);

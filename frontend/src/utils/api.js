@@ -72,7 +72,8 @@ class Api {
 export const api = new Api({
   address: 'https://api.shaloban.students.nomoredomains.club/',
   headers: {
-    authorization: '0060365e-6bd8-4d1d-98fb-fea2d784de29',
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Credentials': true,
+    origin: 'https://api.shaloban.students.nomoredomains.club',
   },
 });
