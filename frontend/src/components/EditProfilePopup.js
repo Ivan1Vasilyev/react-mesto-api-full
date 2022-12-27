@@ -30,7 +30,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
         type="text"
         name="name"
         minLength="2"
-        maxLength="40"
+        maxLength="30"
         value={values.name}
         onChange={handleChange}
         required
@@ -41,7 +41,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
         type="text"
         name="about"
         minLength="2"
-        maxLength="200"
+        maxLength="30"
         value={values.about}
         onChange={handleChange}
         required

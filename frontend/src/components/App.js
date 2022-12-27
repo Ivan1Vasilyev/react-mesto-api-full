@@ -70,7 +70,6 @@ const App = () => {
     (userData) =>
       uxWrap(setTextLoading, async () => {
         try {
-          console.log(userData);
           const updatedData = await api.editUserData(userData);
           setCurrentUser({ ...updatedData });
           closeAllPopups();
