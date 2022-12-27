@@ -136,22 +136,21 @@ const login = async (req, res, next) => {
 };
 
 const logout = async (req, res, next) => {
-  const token = req.cookies.jwt;
-  if (!token) {
-    return next(new NotAuthorizedError('Необходима авторизация'));
+  const { _id } = req.body;
+  const user = await User.findOne({ _id });
+  if (!user) {
+    return next(new NotAuthorizedError('Пользователь не найден'));
   }
 
-  try {
-    jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key');
-  } catch (e) {
-    return next(new NotAuthorizedError('Необходима авторизация'));
-  }
-
-  req.user = null;
+  const token = jwt.sign(
+    { _id: user._id },
+    NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key',
+    { expiresIn: -1 },
+  );
 
   return res
     .cookie('jwt', token, {
-      maxAge: -1,
+      maxAge: 0,
       httpOnly: true,
       sameSite: 'none',
       secure: true,
