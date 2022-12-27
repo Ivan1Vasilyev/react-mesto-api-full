@@ -71,6 +71,7 @@ const App = () => {
       uxWrap(setTextLoading, async () => {
         try {
           const updatedData = await api.editUserData(userData);
+          console.log(userData);
           setCurrentUser({ ...updatedData });
           closeAllPopups();
         } catch (err) {
@@ -99,8 +100,7 @@ const App = () => {
       uxWrap(setTextLoading, async () => {
         try {
           const data = await api.setUserAvatar(newAvatar);
-          console.log(data);
-          setCurrentUser({ ...currentUser, avatar: data.avatar });
+          setCurrentUser({ ...data });
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка обновления аватара пользователя.');
