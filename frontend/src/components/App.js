@@ -184,11 +184,10 @@ const App = () => {
 
   const checkToken = useCallback(async () => {
     try {
-      // const jwt = localStorage.getItem('jwt');
-      // if (!jwt) throw new Error('Нет токена');
       const user = await userAuth.checkToken();
+      console.log(user);
       if (!user) throw new Error('Такого пользователя нет в базе.');
-      setEmail(user.data.email);
+      setEmail(user.email);
       setLoggedIn(true);
     } catch (err) {
       handleError(err, 'Ошибка проверки токена');
