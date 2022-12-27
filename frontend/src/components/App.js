@@ -99,6 +99,7 @@ const App = () => {
       uxWrap(setTextLoading, async () => {
         try {
           const data = await api.setUserAvatar(newAvatar);
+          console.log(data);
           setCurrentUser({ ...currentUser, avatar: data.avatar });
           closeAllPopups();
         } catch (err) {

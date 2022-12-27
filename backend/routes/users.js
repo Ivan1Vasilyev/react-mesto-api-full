@@ -13,6 +13,8 @@ router.get('/', getUsers);
 
 router.get('/me', getUserData);
 
+router.get('/:userId', celebrate({ params: Joi.object().keys({ userId: joiId() }) }), getUser);
+
 router.patch(
   '/me',
   celebrate({
@@ -23,8 +25,6 @@ router.patch(
   }),
   upDateUserData,
 );
-
-router.get('/:userId', celebrate({ params: Joi.object().keys({ userId: joiId() }) }), getUser);
 
 router.patch(
   '/me/avatar',
