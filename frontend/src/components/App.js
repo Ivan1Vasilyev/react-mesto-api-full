@@ -135,10 +135,6 @@ const App = () => {
     []
   );
 
-  // const authenticate = useCallback((data) => {
-  //   localStorage.setItem('jwt', data.token);
-  // }, []);
-
   const onLogin = useCallback(
     (userData) =>
       uxWrap(
@@ -185,7 +181,6 @@ const App = () => {
   const checkToken = useCallback(async () => {
     try {
       const user = await userAuth.checkToken();
-      console.log(user);
       if (!user) throw new Error('Такого пользователя нет в базе.');
       setEmail(user.email);
       setLoggedIn(true);
