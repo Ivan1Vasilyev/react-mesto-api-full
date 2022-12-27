@@ -8,7 +8,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   const [inputsValidate, setInputsValidate] = useState({ name: {}, about: {} });
   const { values, setValues, handleChange } = useForm({ name: '', about: '' });
 
-  const getValidateData = useCallback(validateData => setInputsValidate(validateData), []);
+  const getValidateData = useCallback((validateData) => setInputsValidate(validateData), []);
 
   const handleSubmit = useCallback(() => onUpdateUser(values), [values, onUpdateUser]);
 

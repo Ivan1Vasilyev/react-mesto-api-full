@@ -70,8 +70,8 @@ const App = () => {
     (userData) =>
       uxWrap(setTextLoading, async () => {
         try {
-          const updatedData = await api.editUserData(userData);
           console.log(userData);
+          const updatedData = await api.editUserData(userData);
           setCurrentUser({ ...updatedData });
           closeAllPopups();
         } catch (err) {
@@ -142,9 +142,8 @@ const App = () => {
         setTextLoading,
         async () => {
           try {
-            const res = await userAuth.login(userData);
-            // authenticate(res);
-            checkToken();
+            await userAuth.login(userData);
+            await checkToken();
           } catch (err) {
             const errorMessage = await handleError(err);
             setIsTooltipOnError(true);
