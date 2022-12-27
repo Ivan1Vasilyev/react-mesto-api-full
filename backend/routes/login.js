@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const { login, createUser } = require('../controllers/users');
+const { login, createUser, logout } = require('../controllers/users');
 const { joiNameOrAbout, joiUrl, joiEmail, joiPassword } = require('../utils/joi-validators');
 
 router.post(
@@ -13,6 +13,7 @@ router.post(
   }),
   login,
 );
+
 router.post(
   '/signup',
   celebrate({
@@ -26,5 +27,7 @@ router.post(
   }),
   createUser,
 );
+
+router.get('/logout', logout);
 
 module.exports = router;

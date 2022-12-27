@@ -135,6 +135,30 @@ const login = async (req, res, next) => {
   }
 };
 
+const logout = async (req, res, next) => {
+  const token = req.cookies.jwt;
+  if (!token) {
+    return next(new NotAuthorizedError('Необходима авторизация'));
+  }
+
+  try {
+    jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key');
+  } catch (e) {
+    return next(new NotAuthorizedError('Необходима авторизация'));
+  }
+
+  req.user = null;
+
+  return res
+    .cookie('jwt', token, {
+      maxAge: -1,
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+    })
+    .json({ message: 'Выход из профиля' });
+};
+
 module.exports = {
   getUser,
   getUsers,
@@ -143,4 +167,5 @@ module.exports = {
   upDateUserAvatar,
   login,
   getUserData,
+  logout,
 };
