@@ -126,11 +126,10 @@ const login = async (req, res, next) => {
       .cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-        sameSite: true,
+        sameSite: 'none',
         secure: true,
-        domain: 'shaloban.students.nomoredomains.club',
       })
-      .json({ message: 'Вы авторизированы!' });
+      .json({ message: 'Вы авторизованы!' });
   } catch (e) {
     return next(e);
   }
