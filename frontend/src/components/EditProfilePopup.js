@@ -13,7 +13,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   const handleSubmit = useCallback(() => onUpdateUser(values), [values, onUpdateUser]);
 
   useEffect(() => {
-    if (isOpen) setValues(currentUser);
+    if (isOpen) setValues({ name: currentUser.name, about: currentUser.about });
   }, [isOpen]);
 
   return (
