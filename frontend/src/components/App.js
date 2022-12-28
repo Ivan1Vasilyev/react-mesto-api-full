@@ -57,9 +57,10 @@ const App = () => {
     setConfirmCallback(() => () => handleDeleteCard(card._id));
   }, []);
   const openLogOutPopup = useCallback(() => {
+    console.log(currentUser);
     setConfirmPopupOpen(true);
     setConfirmCallback(() => () => onSignOut(currentUser._id));
-  }, [currentUser._id]);
+  }, [currentUser]);
 
   const showFullImageClick = useCallback((card) => {
     setImagePopup(true);
