@@ -34,7 +34,11 @@ const corsOptions = {
   optionsSuccessStatus: 200,
   credentials: true,
 };
-
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 app.use(cors(corsOptions));
 app.use(helmet());
 app.use(limiter);
