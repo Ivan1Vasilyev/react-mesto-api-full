@@ -5,7 +5,8 @@ const Card = ({ card, onCardDelete, showFullImageClick, onCardLike }) => {
   const currentUserId = useContext(CurrentUserContext)._id;
   const isOwner = card.owner._id === currentUserId;
   const isLiked = card.likes.some((i) => i._id === currentUserId);
-  console.log(currentUserId, card.likes);
+  console.log(card.owner._id);
+  console.log(currentUserId);
 
   return (
     <li className="card">
