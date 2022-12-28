@@ -22,7 +22,7 @@ const createCard = async (req, res, next) => {
       owner: req.user._id,
       name: name ? escape(name) : name,
       link,
-    });
+    }).populate('owner');
     return res.status(CREATED_CODE).json(newCard);
   } catch (e) {
     if (e.name === 'ValidationError') {
