@@ -28,18 +28,18 @@ export const login = async (userData) => {
   return checkResponse(response);
 };
 
-export const checkToken = async () => {
-  const response = await fetch(`${baseUrl}/users/me`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      origin: baseUrl,
-      'Access-Control-Allow-Credentials': true,
-    },
-    credentials: 'include',
-  });
-  return checkResponse(response);
-};
+// export const checkToken = async () => {
+//   const response = await fetch(`${baseUrl}/users/me`, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       origin: baseUrl,
+//       'Access-Control-Allow-Credentials': true,
+//     },
+//     credentials: 'include',
+//   });
+//   return checkResponse(response);
+// };
 
 export const logout = async () =>
   await fetch(`${baseUrl}/users/me`, {

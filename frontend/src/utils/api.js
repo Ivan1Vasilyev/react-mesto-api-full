@@ -6,7 +6,7 @@ class Api {
 
   _responseHandler = (response) => (response.ok ? response.json() : Promise.reject(response.json()));
 
-  _getUserInfo = () =>
+  getUserInfo = () =>
     fetch(`${this._address}users/me`, {
       method: 'GET',
       headers: this._headers,
@@ -25,7 +25,7 @@ class Api {
       credentials: 'include',
     }).then(this._responseHandler);
 
-  loadDefaultData = () => Promise.all([this._getUserInfo(), this._getDefaultCards()]);
+  loadDefaultData = () => Promise.all([this.getUserInfo(), this._getDefaultCards()]);
 
   editUserData = (newData) =>
     fetch(`${this._address}users/me`, {
