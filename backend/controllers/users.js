@@ -152,7 +152,7 @@ const logout = async (req, res, next) => {
     .cookie('jwt', token, {
       maxAge: 1,
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: 'lax',
       secure: true,
     })
     .json({ message: 'Выход из профиля' });
