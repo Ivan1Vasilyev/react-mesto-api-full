@@ -190,7 +190,7 @@ const App = () => {
 
   const onSignOut = useCallback(async () => {
     try {
-      await userAuth.logout();
+      await userAuth.logout(currentUser._id);
       setLoggedIn(false);
       closeAllPopups();
     } catch (err) {

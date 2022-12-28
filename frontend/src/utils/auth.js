@@ -28,7 +28,7 @@ export const login = async (userData) => {
   return checkResponse(response);
 };
 
-export const logout = async () =>
+export const logout = async (_id) =>
   await fetch(`${baseUrl}/signout`, {
     method: 'POST',
     headers: {
@@ -36,5 +36,6 @@ export const logout = async () =>
       'Access-Control-Allow-Credentials': true,
       origin: baseUrl,
     },
+    body: JSON.stringify({ _id }),
     credentials: 'include',
   });
