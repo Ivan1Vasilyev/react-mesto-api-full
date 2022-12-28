@@ -28,8 +28,9 @@ export const login = async (userData) => {
   return checkResponse(response);
 };
 
-export const logout = async (_id) =>
-  await fetch(`${baseUrl}/signout`, {
+export const logout = async (_id) => {
+  console.log(_id);
+  return await fetch(`${baseUrl}/signout`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -39,3 +40,4 @@ export const logout = async (_id) =>
     body: JSON.stringify({ _id }),
     credentials: 'include',
   });
+};
