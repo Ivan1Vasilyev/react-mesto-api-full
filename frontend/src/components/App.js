@@ -57,8 +57,9 @@ const App = () => {
     setConfirmCallback(() => () => handleDeleteCard(card._id));
   }, []);
   const openLogOutPopup = useCallback(() => {
+    console.log(currentUser);
     setConfirmPopupOpen(true);
-    setConfirmCallback(() => onSignOut);
+    setConfirmCallback(() => () => onSignOut(currentUser._id));
   }, []);
 
   const showFullImageClick = useCallback((card) => {
@@ -188,16 +189,15 @@ const App = () => {
     }
   }, []);
 
-  const onSignOut = useCallback(async () => {
+  const onSignOut = useCallback(async (id) => {
     try {
-      console.log(currentUser);
-      await userAuth.logout(currentUser._id);
+      await userAuth.logout(id);
       setLoggedIn(false);
       closeAllPopups();
     } catch (err) {
       handleError(err, 'Ошибка выхода из профиля');
     }
-  }, [currentUser]);
+  }, []);
 
   useEffect(() => {
     if (loggedIn) {
