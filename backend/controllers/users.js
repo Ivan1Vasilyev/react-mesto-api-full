@@ -139,7 +139,7 @@ const logout = async (req, res, next) => {
   // try {
   const { _id } = req.body;
   // const user = await findUser(res, next, _id);
-  const user = await User.findOne({ _id });
+  const user = await User.findById(_id);
   if (!user) {
     return next(new NotFoundError(`${NOT_EXISTS_MESSAGE}: Пользователь не найден.`));
   }
