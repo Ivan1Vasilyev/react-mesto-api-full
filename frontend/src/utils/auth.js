@@ -29,7 +29,6 @@ export const login = async (userData) => {
 };
 
 export const logout = async (_id) => {
-  console.log(_id);
   return await fetch(`${baseUrl}/signout`, {
     method: 'POST',
     headers: {

@@ -60,7 +60,7 @@ const App = () => {
     console.log(currentUser);
     setConfirmPopupOpen(true);
     setConfirmCallback(() => () => onSignOut(currentUser._id));
-  }, []);
+  }, [currentUser]);
 
   const showFullImageClick = useCallback((card) => {
     setImagePopup(true);
