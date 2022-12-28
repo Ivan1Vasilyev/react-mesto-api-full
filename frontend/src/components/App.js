@@ -188,22 +188,27 @@ const App = () => {
     }
   }, []);
 
-  const onSignOut = useCallback(() => {
-    setLoggedIn(false);
-    closeAllPopups();
+  const onSignOut = useCallback(async () => {
+    try {
+      await userAuth.logout();
+      setLoggedIn(false);
+      closeAllPopups();
+    } catch (err) {
+      handleError(err, 'Ошибка выхода из профиля');
+    }
   }, []);
 
   useEffect(() => {
-    const loadDefaultData = async () => {
-      try {
-        const [userInfo, defaultCards] = await api.loadDefaultData();
-        setCurrentUser({ ...userInfo });
-        setCards([...defaultCards]);
-      } catch (err) {
-        handleError(err, 'Ошибка загрузки начальных данных.');
-      }
-    };
     if (loggedIn) {
+      const loadDefaultData = async () => {
+        try {
+          const [userInfo, defaultCards] = await api.loadDefaultData();
+          setCurrentUser({ ...userInfo });
+          setCards([...defaultCards]);
+        } catch (err) {
+          handleError(err, 'Ошибка загрузки начальных данных.');
+        }
+      };
       loadDefaultData();
     }
   }, [loggedIn]);

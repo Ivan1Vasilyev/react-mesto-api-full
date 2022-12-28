@@ -1,16 +1,13 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Popup from './Popup';
 import { PopupOnLoadContext } from '../contexts/PopupOnLoadContext';
 
-const PopupWithForm = props => {
+const PopupWithForm = (props) => {
   const textLoading = useContext(PopupOnLoadContext);
-  const resetValidator = useCallback(
-    () =>
-      props.children
-        ?.filter(item => item.type === 'input')
-        .reduce((acc, item) => ({ ...acc, [item.props.name]: {} }), {}),
-    [props.children]
-  );
+  const resetValidator = () =>
+    props.children
+      ?.filter((item) => item.type === 'input')
+      .reduce((acc, item) => ({ ...acc, [item.props.name]: {} }), {});
   const [isFormInvalid, setIsFormInvalid] = useState(false);
   const [validator, setValidator] = useState(resetValidator());
 
@@ -25,29 +22,23 @@ const PopupWithForm = props => {
     if (props.validate) props.validate(validator);
   }, [validator]);
 
-  const handleSubmit = useCallback(
-    e => {
-      e.preventDefault();
-      props.onSubmit();
-      setIsFormInvalid(true);
-    },
-    [props.onSubmit]
-  );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.onSubmit();
+    setIsFormInvalid(true);
+  };
 
-  const handleFormValidation = useCallback(
-    e => {
-      const { name, validationMessage, validity } = e.target;
-      setValidator({
-        ...validator,
-        [name]: {
-          message: validationMessage,
-          isInvalid: !validity.valid,
-        },
-      });
-      setIsFormInvalid(!e.currentTarget.checkValidity());
-    },
-    [validator]
-  );
+  const handleFormValidation = (e) => {
+    const { name, validationMessage, validity } = e.target;
+    setValidator({
+      ...validator,
+      [name]: {
+        message: validationMessage,
+        isInvalid: !validity.valid,
+      },
+    });
+    setIsFormInvalid(!e.currentTarget.checkValidity());
+  };
 
   return (
     <Popup onClose={props.onClose} type={`popup__form-container ${props.type}`} isOpen={props.isOpen}>

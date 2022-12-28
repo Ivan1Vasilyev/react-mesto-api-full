@@ -1,15 +1,12 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
-const useForm = inputValues => {
+const useForm = (inputValues) => {
   const [values, setValues] = useState(inputValues);
 
-  const handleChange = useCallback(
-    e => {
-      const { name, value } = e.target;
-      setValues({ ...values, [name]: value });
-    },
-    [values]
-  );
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
 
   return { values, setValues, handleChange };
 };

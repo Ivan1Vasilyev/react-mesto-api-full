@@ -1,10 +1,10 @@
 import { useCallback, useEffect } from 'react';
 
-const Popup = props => {
+const Popup = (props) => {
   useEffect(() => {
     if (!props.isOpen) return;
 
-    const handleEscClose = event => {
+    const handleEscClose = (event) => {
       if (event.key === 'Escape') props.onClose();
     };
 
@@ -13,9 +13,9 @@ const Popup = props => {
     return () => document.removeEventListener('keydown', handleEscClose);
   }, [props.isOpen]);
 
-  const handleClickClosePopup = useCallback(event => {
+  const handleClickClosePopup = (event) => {
     if (event.target === event.currentTarget) props.onClose();
-  }, []);
+  };
 
   return (
     <div className={`popup ${props.backGround} ${props.isOpen && 'popup_opened'}`} onClick={handleClickClosePopup}>
