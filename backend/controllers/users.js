@@ -136,26 +136,27 @@ const login = async (req, res, next) => {
 };
 
 const logout = async (req, res, next) => {
-  const { _id } = req.body;
-  const user = await User.findOne({ _id });
-  if (!user) {
-    return next(new NotAuthorizedError('Пользователь не найден'));
+  try {
+    const { _id } = req.body;
+    const user = await findUser(res, next, _id);
+
+    const token = jwt.sign(
+      { _id: user._id },
+      NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key',
+      { expiresIn: 1 },
+    );
+
+    return res
+      .cookie('jwt', token, {
+        maxAge: 1,
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: true,
+      })
+      .json({ message: 'Выход из профиля' });
+  } catch (e) {
+    return next(e);
   }
-
-  const token = jwt.sign(
-    { _id: user._id },
-    NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key',
-    { expiresIn: 1 },
-  );
-
-  return res
-    .cookie('jwt', token, {
-      maxAge: 1,
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: true,
-    })
-    .json({ message: 'Выход из профиля' });
 };
 
 module.exports = {
