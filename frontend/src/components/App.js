@@ -197,7 +197,7 @@ const App = () => {
     } catch (err) {
       handleError(err, 'Ошибка выхода из профиля');
     }
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     if (loggedIn) {
