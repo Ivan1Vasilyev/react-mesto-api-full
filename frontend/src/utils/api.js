@@ -1,86 +1,124 @@
-class Api {
-  constructor(settings) {
-    this._address = settings.address;
-    this._headers = settings.headers;
-  }
+const address = 'https://api.shaloban.students.nomoredomains.club';
+const headers = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Credentials': true,
+  origin: 'https://api.shaloban.students.nomoredomains.club',
+};
+let currentUserId;
 
-  _responseHandler = (response) => (response.ok ? response.json() : Promise.reject(response.json()));
+const responseHandler = (response) => (response.ok ? response.json() : Promise.reject(response.json()));
 
-  getUserInfo = () =>
-    fetch(`${this._address}users/me`, {
-      method: 'GET',
-      headers: this._headers,
-      credentials: 'include',
-    })
-      .then(this._responseHandler)
-      .then((response) => {
-        this.id = response._id;
-        return response;
-      });
+export const register = async (userData) => {
+  const response = await fetch(`${address}/signup`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      origin: address,
+    },
+    body: JSON.stringify(userData),
+  });
+  return responseHandler(response);
+};
 
-  _getDefaultCards = () =>
-    fetch(`${this._address}cards`, {
-      method: 'GET',
-      headers: this._headers,
-      credentials: 'include',
-    }).then(this._responseHandler);
+export const login = async (userData) => {
+  const response = await fetch(`${address}/signin`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(userData),
+    credentials: 'include',
+  });
+  return responseHandler(response);
+};
 
-  loadDefaultData = () => Promise.all([this.getUserInfo(), this._getDefaultCards()]);
+export const logout = async (_id) => {
+  const response = await fetch(`${address}/signout`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({ _id }),
+    credentials: 'include',
+  });
+  return responseHandler(response);
+};
 
-  editUserData = (newData) =>
-    fetch(`${this._address}users/me`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify(newData),
-      credentials: 'include',
-    }).then(this._responseHandler);
+export const getUserInfo = async () => {
+  const res = await fetch(`${address}/users/me`, {
+    method: 'GET',
+    headers: headers,
+    credentials: 'include',
+  });
 
-  setUserAvatar = (link) =>
-    fetch(`${this._address}users/me/avatar`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify(link),
-      credentials: 'include',
-    }).then(this._responseHandler);
+  const response = await responseHandler(res);
+  currentUserId = response._id;
+  return response;
+};
 
-  addCard = (card) =>
-    fetch(`${this._address}cards`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify(card),
-      credentials: 'include',
-    }).then(this._responseHandler);
+const getDefaultCards = async () => {
+  const response = await fetch(`${address}/cards`, {
+    method: 'GET',
+    headers: headers,
+    credentials: 'include',
+  });
+  return responseHandler(response);
+};
 
-  _addLikeCard = (id) =>
-    fetch(`${this._address}cards/${id}/likes`, {
-      method: 'PUT',
-      headers: this._headers,
-      credentials: 'include',
-    }).then(this._responseHandler);
+export const loadDefaultData = () => Promise.all([getUserInfo(), getDefaultCards()]);
 
-  _removeLikeCard = (id) =>
-    fetch(`${this._address}cards/${id}/likes`, {
-      method: 'DELETE',
-      headers: this._headers,
-      credentials: 'include',
-    }).then(this._responseHandler);
+export const editUserData = async (newData) => {
+  const response = await fetch(`${address}/users/me`, {
+    method: 'PATCH',
+    headers: headers,
+    body: JSON.stringify(newData),
+    credentials: 'include',
+  });
+  return responseHandler(response);
+};
 
-  toggleLike = (card) =>
-    card.likes.some((user) => user._id === this.id) ? this._removeLikeCard(card._id) : this._addLikeCard(card._id);
+export const setUserAvatar = async (link) => {
+  const response = await fetch(`${address}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: headers,
+    body: JSON.stringify(link),
+    credentials: 'include',
+  });
+  return responseHandler(response);
+};
 
-  deleteCard = (id) =>
-    fetch(`${this._address}cards/${id}`, {
-      method: 'DELETE',
-      headers: this._headers,
-      credentials: 'include',
-    }).then(this._responseHandler);
-}
+export const addCard = async (card) => {
+  const response = await fetch(`${address}/cards`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(card),
+    credentials: 'include',
+  });
+  return responseHandler(response);
+};
 
-export const api = new Api({
-  address: 'https://api.shaloban.students.nomoredomains.club/',
-  headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Credentials': true,
-    origin: 'https://api.shaloban.students.nomoredomains.club',
-  },
-});
+const addLikeCard = async (id) => {
+  const response = await fetch(`${address}/cards/${id}/likes`, {
+    method: 'PUT',
+    headers: headers,
+    credentials: 'include',
+  });
+  return responseHandler(response);
+};
+
+const removeLikeCard = async (id) => {
+  const response = await fetch(`${address}/cards/${id}/likes`, {
+    method: 'DELETE',
+    headers: headers,
+    credentials: 'include',
+  });
+  return responseHandler(response);
+};
+
+export const toggleLike = (card) =>
+  card.likes.some((user) => user._id === currentUserId) ? removeLikeCard(card._id) : addLikeCard(card._id);
+
+export const deleteCard = async (id) => {
+  const response = await fetch(`${address}/cards/${id}`, {
+    method: 'DELETE',
+    headers: headers,
+    credentials: 'include',
+  });
+  return responseHandler(response);
+};

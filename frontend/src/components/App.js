@@ -17,9 +17,8 @@ import InfoTooltip from './InfoTooltip';
 import PageNotFound from './PageNotFound';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { PopupOnLoadContext } from '../contexts/PopupOnLoadContext';
-import { api } from '../utils/api.js';
+import * as api from '../utils/api.js';
 import { uxWrap, handleError } from '../utils/utils';
-import * as userAuth from '../utils/auth';
 
 const App = () => {
   const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false);
@@ -141,7 +140,7 @@ const App = () => {
         setTextLoading,
         async () => {
           try {
-            await userAuth.login(userData);
+            await api.login(userData);
             await checkToken();
           } catch (err) {
             const errorMessage = await handleError(err);
@@ -160,7 +159,7 @@ const App = () => {
       setTextLoading,
       async () => {
         try {
-          const res = await userAuth.register(userData);
+          const res = await api.register(userData);
           if (res) {
             setIsTooltipOnError(false);
             setIsInfoTooltipOpen(true);
@@ -190,7 +189,7 @@ const App = () => {
 
   const onSignOut = useCallback(async (id) => {
     try {
-      await userAuth.logout(id);
+      await api.logout(id);
       setLoggedIn(false);
       closeAllPopups();
     } catch (err) {
