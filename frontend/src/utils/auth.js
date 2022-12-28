@@ -19,8 +19,8 @@ export const login = async (userData) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      origin: baseUrl,
       'Access-Control-Allow-Credentials': true,
+      origin: baseUrl,
     },
     body: JSON.stringify(userData),
     credentials: 'include',
@@ -29,12 +29,12 @@ export const login = async (userData) => {
 };
 
 export const logout = async () =>
-  await fetch(`${baseUrl}/users/me`, {
-    method: 'HEAD',
+  await fetch(`${baseUrl}/signout`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      origin: baseUrl,
       'Access-Control-Allow-Credentials': true,
+      origin: baseUrl,
     },
     credentials: 'include',
   });

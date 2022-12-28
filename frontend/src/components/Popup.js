@@ -1,8 +1,8 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
-const Popup = (props) => {
+const Popup = ({ isOpen, ...props }) => {
   useEffect(() => {
-    if (!props.isOpen) return;
+    if (!isOpen) return;
 
     const handleEscClose = (event) => {
       if (event.key === 'Escape') props.onClose();
@@ -11,7 +11,7 @@ const Popup = (props) => {
     document.addEventListener('keydown', handleEscClose);
 
     return () => document.removeEventListener('keydown', handleEscClose);
-  }, [props.isOpen]);
+  }, [isOpen]);
 
   const handleClickClosePopup = (event) => {
     if (event.target === event.currentTarget) props.onClose();

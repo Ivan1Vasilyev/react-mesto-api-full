@@ -28,6 +28,6 @@ router.post(
   createUser,
 );
 
-router.post('/logout', celebrate({ body: Joi.object().keys({ _id: joiId() }) }), logout);
+router.post('/signout', celebrate({ body: Joi.object().keys({ _id: joiId() }) }), logout);
 
 module.exports = router;
