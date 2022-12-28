@@ -4,7 +4,8 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 const Card = ({ card, onCardDelete, showFullImageClick, onCardLike }) => {
   const currentUserId = useContext(CurrentUserContext)._id;
   const isOwner = card.owner._id === currentUserId;
-  const isLiked = card.likes.some(i => i._id === currentUserId);
+  const isLiked = card.likes.some((i) => i._id === currentUserId);
+  console.log(currentUserId, card.likes);
 
   return (
     <li className="card">
