@@ -146,12 +146,12 @@ const logout = async (req, res, next) => {
     const token = jwt.sign(
       { _id: user._id },
       NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key',
-      { expiresIn: 1 },
+      { expiresIn: -1 },
     );
 
     return res
       .cookie('jwt', token, {
-        maxAge: 1,
+        maxAge: 0,
         httpOnly: true,
         sameSite: 'lax',
         secure: true,
