@@ -10,9 +10,7 @@ const InfoTooltip = ({ onClose, isOpen, onError, errorMessage }) => (
       alt="Картинка о результате регистарции"
     />
     <p className="popup__info-message">
-      {onError
-        ? `Что-то пошло не так! ${errorMessage.error || errorMessage.message}`
-        : 'Вы успешно зарегистрировались!'}
+      {onError ? `Что-то пошло не так! ${errorMessage.message}` : 'Вы успешно зарегистрировались!'}
     </p>
   </Popup>
 );
