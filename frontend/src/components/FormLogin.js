@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PopupOnLoadContext } from '../contexts/PopupOnLoadContext';
 import useForm from '../hooks/useForm';
@@ -9,26 +9,20 @@ const FormLogin = (props) => {
   const [isFormInvalid, setIsFormInvalid] = useState(true);
   const { values, handleChange } = useForm({ email: '', password: '' });
 
-  const handleFormValidation = useCallback(
-    (e) => {
-      const { name, validationMessage } = e.target;
-      setInputsValidate({
-        ...inputsValidate,
-        [name]: validationMessage,
-      });
-      setIsFormInvalid(!e.currentTarget.checkValidity());
-    },
-    [inputsValidate]
-  );
+  const handleFormValidation = (e) => {
+    const { name, validationMessage } = e.target;
+    setInputsValidate({
+      ...inputsValidate,
+      [name]: validationMessage,
+    });
+    setIsFormInvalid(!e.currentTarget.checkValidity());
+  };
 
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      props.onSubmit(values);
-      setIsFormInvalid(true);
-    },
-    [values]
-  );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.onSubmit(values);
+    setIsFormInvalid(true);
+  };
 
   return (
     <div className="form-login">
