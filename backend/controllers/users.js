@@ -126,7 +126,7 @@ const login = async (req, res, next) => {
       .cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-        sameSite: 'strict',
+        sameSite: true,
         secure: true,
       })
       .json({ message: 'Вы авторизованы!' });
@@ -153,7 +153,7 @@ const logout = async (req, res, next) => {
       .cookie('jwt', token, {
         maxAge: 0,
         httpOnly: true,
-        sameSite: 'lax',
+        sameSite: true,
         secure: true,
       })
       .json({ message: 'Выход из профиля' });
