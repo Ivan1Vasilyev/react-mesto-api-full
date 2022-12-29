@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-const Main = props => {
+const Main = (props) => {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -30,15 +30,17 @@ const Main = props => {
       </section>
       <section className="elements">
         <ul className="elements__container">
-          {props.cards.map(card => (
-            <Card
-              key={card._id}
-              card={card}
-              showFullImageClick={props.showFullImageClick}
-              onCardDelete={props.onCardDelete}
-              onCardLike={props.onCardLike}
-            />
-          ))}
+          {props.cards
+            .map((card) => (
+              <Card
+                key={card._id}
+                card={card}
+                showFullImageClick={props.showFullImageClick}
+                onCardDelete={props.onCardDelete}
+                onCardLike={props.onCardLike}
+              />
+            ))
+            .reverse()}
         </ul>
       </section>
     </main>
