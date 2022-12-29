@@ -84,7 +84,7 @@ const App = () => {
       uxWrap(setTextLoading, async () => {
         try {
           const newCard = await api.addCard(placeData);
-          setCards((state) => [newCard, ...state]);
+          setCards((state) => [...state, newCard]);
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка добавления новой карточки.');

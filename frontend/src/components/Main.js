@@ -30,15 +30,17 @@ const Main = (props) => {
       </section>
       <section className="elements">
         <ul className="elements__container">
-          {props.cards.map((card) => (
-            <Card
-              key={card._id}
-              card={card}
-              showFullImageClick={props.showFullImageClick}
-              onCardDelete={props.onCardDelete}
-              onCardLike={props.onCardLike}
-            />
-          ))}
+          {props.cards
+            .map((card) => (
+              <Card
+                key={card._id}
+                card={card}
+                showFullImageClick={props.showFullImageClick}
+                onCardDelete={props.onCardDelete}
+                onCardLike={props.onCardLike}
+              />
+            ))
+            .reverse()}
         </ul>
       </section>
     </main>
