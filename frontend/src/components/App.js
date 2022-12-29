@@ -70,7 +70,7 @@ const App = () => {
       uxWrap(setTextLoading, async () => {
         try {
           const updatedData = await api.editUserData(userData);
-          setCurrentUser({ ...updatedData });
+          setCurrentUser({ name: updatedData.name, about: updatedData.about, ...currentUser });
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка обновления данных пользователя.');
@@ -84,7 +84,7 @@ const App = () => {
       uxWrap(setTextLoading, async () => {
         try {
           const newCard = await api.addCard(placeData);
-          setCards([newCard, ...cards]);
+          setCards((state) => [newCard, ...state]);
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка добавления новой карточки.');
@@ -97,8 +97,8 @@ const App = () => {
     (newAvatar) =>
       uxWrap(setTextLoading, async () => {
         try {
-          const data = await api.setUserAvatar(newAvatar);
-          setCurrentUser({ ...data });
+          const updatedData = await api.setUserAvatar(newAvatar);
+          setCurrentUser({ avatar: updatedData.avatar, ...currentUser });
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка обновления аватара пользователя.');
@@ -123,7 +123,7 @@ const App = () => {
         async () => {
           try {
             await api.deleteCard(cardId);
-            setCards((cards) => cards.filter((c) => c._id !== cardId));
+            setCards((state) => state.filter((c) => c._id !== cardId));
             closeAllPopups();
           } catch (err) {
             handleError(err, 'Ошибка удаления карточки.');
