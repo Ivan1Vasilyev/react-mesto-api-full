@@ -23,7 +23,7 @@ export const register = async (userData) => {
 export const login = async (userData) => {
   const response = await fetch(`${address}/signin`, {
     method: 'POST',
-    headers: headers,
+    headers,
     body: JSON.stringify(userData),
     credentials: 'include',
   });
@@ -33,7 +33,7 @@ export const login = async (userData) => {
 export const logout = async (_id) => {
   const response = await fetch(`${address}/signout`, {
     method: 'POST',
-    headers: headers,
+    headers,
     body: JSON.stringify({ _id }),
     credentials: 'include',
   });
@@ -43,7 +43,7 @@ export const logout = async (_id) => {
 export const getUserInfo = async () => {
   const res = await fetch(`${address}/users/me`, {
     method: 'GET',
-    headers: headers,
+    headers,
     credentials: 'include',
   });
 
@@ -55,7 +55,7 @@ export const getUserInfo = async () => {
 const getDefaultCards = async () => {
   const response = await fetch(`${address}/cards`, {
     method: 'GET',
-    headers: headers,
+    headers,
     credentials: 'include',
   });
   return responseHandler(response);
@@ -66,7 +66,7 @@ export const loadDefaultData = () => Promise.all([getUserInfo(), getDefaultCards
 export const editUserData = async (newData) => {
   const response = await fetch(`${address}/users/me`, {
     method: 'PATCH',
-    headers: headers,
+    headers,
     body: JSON.stringify(newData),
     credentials: 'include',
   });
@@ -76,7 +76,7 @@ export const editUserData = async (newData) => {
 export const setUserAvatar = async (link) => {
   const response = await fetch(`${address}/users/me/avatar`, {
     method: 'PATCH',
-    headers: headers,
+    headers,
     body: JSON.stringify(link),
     credentials: 'include',
   });
@@ -86,7 +86,7 @@ export const setUserAvatar = async (link) => {
 export const addCard = async (card) => {
   const response = await fetch(`${address}/cards`, {
     method: 'POST',
-    headers: headers,
+    headers,
     body: JSON.stringify(card),
     credentials: 'include',
   });
@@ -96,7 +96,7 @@ export const addCard = async (card) => {
 const addLikeCard = async (id) => {
   const response = await fetch(`${address}/cards/${id}/likes`, {
     method: 'PUT',
-    headers: headers,
+    headers,
     credentials: 'include',
   });
   return responseHandler(response);
@@ -105,7 +105,7 @@ const addLikeCard = async (id) => {
 const removeLikeCard = async (id) => {
   const response = await fetch(`${address}/cards/${id}/likes`, {
     method: 'DELETE',
-    headers: headers,
+    headers,
     credentials: 'include',
   });
   return responseHandler(response);
@@ -117,7 +117,7 @@ export const toggleLike = (card) =>
 export const deleteCard = async (id) => {
   const response = await fetch(`${address}/cards/${id}`, {
     method: 'DELETE',
-    headers: headers,
+    headers,
     credentials: 'include',
   });
   return responseHandler(response);
