@@ -99,6 +99,7 @@ const App = () => {
         try {
           const updatedData = await api.setUserAvatar(newAvatar);
           setCurrentUser({ avatar: updatedData.avatar, ...currentUser });
+          console.log(currentUser);
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка обновления аватара пользователя.');
