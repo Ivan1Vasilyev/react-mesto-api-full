@@ -8,11 +8,12 @@ const rateLimit = require('express-rate-limit');
 const { errors } = require('celebrate');
 const cors = require('cors');
 const router = require('./routes');
-const { DEFAULT_ERROR, NOT_EXISTS_MESSAGE } = require('./utils/constants');
+const { NOT_EXISTS_MESSAGE } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const centralizedErrorHandler = require('./errors/centralized-error-handler');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, MONGO_PORT = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
 const app = express();
 
@@ -35,12 +36,12 @@ const corsOptions = {
   credentials: true,
 };
 
+app.use(requestLogger);
+app.use(limiter);
 app.use(cors(corsOptions));
 app.use(helmet());
-app.use(limiter);
 app.use(cookieParser());
 app.use(express.json());
-app.use(requestLogger);
 app.use(router);
 app.use('*', (req, res, next) => {
   next(new NotFoundError(NOT_EXISTS_MESSAGE));
@@ -48,14 +49,9 @@ app.use('*', (req, res, next) => {
 app.use(errorLogger);
 app.use(errors());
 
-app.use((err, req, res, next) => {
-  const { statusCode = DEFAULT_ERROR, message } = err;
-  return res
-    .status(statusCode)
-    .json({ message: statusCode === DEFAULT_ERROR ? 'На сервере произошла ошибка' : message });
-});
+app.use(centralizedErrorHandler);
 
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb', { useNewUrlParser: true }, (err) => {
+mongoose.connect(MONGO_PORT, { useNewUrlParser: true }, (err) => {
   if (err) {
     console.log(`Can't connect to MongoDB. ${err}`);
     return;
