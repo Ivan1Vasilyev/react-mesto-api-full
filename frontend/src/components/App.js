@@ -76,7 +76,7 @@ const App = () => {
           handleError(err, 'Ошибка обновления данных пользователя.');
         }
       }),
-    []
+    [currentUser]
   );
 
   const handleAddPlace = useCallback(
@@ -90,7 +90,7 @@ const App = () => {
           handleError(err, 'Ошибка добавления новой карточки.');
         }
       }),
-    [cards]
+    []
   );
 
   const handleUpdateAvatar = useCallback(
@@ -104,7 +104,7 @@ const App = () => {
           handleError(err, 'Ошибка обновления аватара пользователя.');
         }
       }),
-    []
+    [currentUser]
   );
 
   const handleCardLike = useCallback(async (card) => {
