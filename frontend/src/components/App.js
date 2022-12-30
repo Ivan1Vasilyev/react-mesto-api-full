@@ -79,6 +79,20 @@ const App = () => {
     [currentUser]
   );
 
+  const handleUpdateAvatar = useCallback(
+    (newAvatar) =>
+      uxWrap(setTextLoading, async () => {
+        try {
+          const updatedData = await api.setUserAvatar(newAvatar);
+          setCurrentUser({ ...updatedData });
+          closeAllPopups();
+        } catch (err) {
+          handleError(err, 'Ошибка обновления аватара пользователя.');
+        }
+      }),
+    [currentUser]
+  );
+
   const handleAddPlace = useCallback(
     (placeData) =>
       uxWrap(setTextLoading, async () => {
@@ -91,21 +105,6 @@ const App = () => {
         }
       }),
     []
-  );
-
-  const handleUpdateAvatar = useCallback(
-    (newAvatar) =>
-      uxWrap(setTextLoading, async () => {
-        try {
-          const updatedData = await api.setUserAvatar(newAvatar);
-          setCurrentUser({ ...updatedData });
-          console.log(currentUser);
-          closeAllPopups();
-        } catch (err) {
-          handleError(err, 'Ошибка обновления аватара пользователя.');
-        }
-      }),
-    [currentUser]
   );
 
   const handleCardLike = useCallback(async (card) => {
