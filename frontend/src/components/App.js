@@ -70,7 +70,7 @@ const App = () => {
       uxWrap(setTextLoading, async () => {
         try {
           const updatedData = await api.editUserData(userData);
-          setCurrentUser({ name: updatedData.name, about: updatedData.about, ...currentUser });
+          setCurrentUser({ ...updatedData });
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка обновления данных пользователя.');
@@ -98,7 +98,7 @@ const App = () => {
       uxWrap(setTextLoading, async () => {
         try {
           const updatedData = await api.setUserAvatar(newAvatar);
-          setCurrentUser({ avatar: updatedData.avatar, ...currentUser });
+          setCurrentUser({ ...updatedData });
           console.log(currentUser);
           closeAllPopups();
         } catch (err) {
