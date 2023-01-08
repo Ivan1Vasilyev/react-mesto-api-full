@@ -186,15 +186,23 @@ const App = () => {
     );
   }, []);
 
-  const onSignOut = useCallback(async (id) => {
-    try {
-      await api.logout(id);
-      setLoggedIn(false);
-      closeAllPopups();
-    } catch (err) {
-      handleError(err, 'Ошибка выхода из профиля');
-    }
-  }, []);
+  const onSignOut = useCallback(
+    (id) =>
+      uxWrap(
+        setTextLoading,
+        async () => {
+          try {
+            await api.logout(id);
+            setLoggedIn(false);
+            closeAllPopups();
+          } catch (err) {
+            handleError(err, 'Ошибка выхода из профиля');
+          }
+        },
+        'Выход...'
+      ),
+    []
+  );
 
   useEffect(() => {
     if (loggedIn) {
