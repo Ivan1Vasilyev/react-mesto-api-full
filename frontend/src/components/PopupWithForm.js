@@ -17,7 +17,7 @@ const PopupWithForm = (props) => {
         <button
           className={`form__submit-button ${props.disabled && 'form__submit-button_disabled'}`}
           type="submit"
-          disabled={textLoading ? true : props.disabled}
+          disabled={textLoading ? false : props.disabled}
         >
           {textLoading ? textLoading : props.buttonText || 'Сохранить'}
         </button>
