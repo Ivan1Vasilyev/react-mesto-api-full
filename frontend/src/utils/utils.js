@@ -1,6 +1,6 @@
 export const uxWrap = (setter, callback, textLoading = 'Сохранение...') => {
   setter(textLoading);
-  return callback().finally(() => setter(''));
+  return callback().finally(() => setTimeout(() => setter(''), 700));
 };
 
 export const handleError = async (err, message) => {

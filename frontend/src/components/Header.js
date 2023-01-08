@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 
 const Header = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const toggler = () => setIsMenuOpen(!isMenuOpen);
+  const toggler = () => setIsMenuOpen((state) => !state);
   useEffect(() => {
     if (!props.loggedIn) setIsMenuOpen(false);
   }, [props.loggedIn]);

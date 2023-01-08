@@ -5,9 +5,10 @@ import Field from './Field';
 
 const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
   const { formik, disabled } = useForm({ avatar: '' }, onUpdateAvatar);
+  const { touched, errors, resetForm, handleSubmit } = formik;
 
   useEffect(() => {
-    if (isOpen) formik.resetForm();
+    if (isOpen) resetForm();
   }, [isOpen]);
 
   return (
@@ -17,11 +18,11 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
       type="popup__form-container_type_edit-avatar"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={formik.handleSubmit}
+      onSubmit={handleSubmit}
       disabled={disabled}
     >
       <Field
-        className={`form__input ${formik.touched.avatar && formik.errors.avatar && 'form__input_type_error'}`}
+        className={`form__input ${touched.avatar && errors.avatar && 'form__input_type_error'}`}
         type="url"
         placeholder="Ссылка на новый аватар"
         name="avatar"

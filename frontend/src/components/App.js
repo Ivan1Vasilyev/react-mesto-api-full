@@ -51,46 +51,46 @@ const App = () => {
   const openEditAvatarPopup = useCallback(() => setEditAvatarPopup(true), []);
   const openEditProfilePopup = useCallback(() => setEditProfilePopup(true), []);
   const openAddPlacePopup = useCallback(() => setAddPlacePopup(true), []);
-  const openDeleteCardPopup = useCallback((card) => {
+  const openDeleteCardPopup = useCallback((id) => {
     setConfirmPopupOpen(true);
-    setConfirmCallback(() => () => handleDeleteCard(card._id));
+    setConfirmCallback(() => () => handleDeleteCard(id));
   }, []);
   const openLogOutPopup = useCallback(() => {
     setConfirmPopupOpen(true);
     setConfirmCallback(() => () => onSignOut(currentUser._id));
-  }, [currentUser]);
+  }, [currentUser._id]);
 
-  const showFullImageClick = useCallback((card) => {
+  const showFullImageClick = useCallback(({ link, name }) => {
     setImagePopup(true);
-    setSelectedCard(card);
+    setSelectedCard({ link, name });
   }, []);
 
   const handleUpdateUser = useCallback(
     (userData) =>
       uxWrap(setTextLoading, async () => {
         try {
-          const updatedData = await api.editUserData(userData);
-          setCurrentUser({ ...updatedData });
+          const { name, about } = await api.editUserData(userData);
+          setCurrentUser((state) => ({ ...state, name, about }));
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка обновления данных пользователя.');
         }
       }),
-    [currentUser]
+    []
   );
 
   const handleUpdateAvatar = useCallback(
     (newAvatar) =>
       uxWrap(setTextLoading, async () => {
         try {
-          const updatedData = await api.setUserAvatar(newAvatar);
-          setCurrentUser({ ...updatedData });
+          const { avatar } = await api.setUserAvatar(newAvatar);
+          setCurrentUser((state) => ({ ...state, avatar }));
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка обновления аватара пользователя.');
         }
       }),
-    [currentUser]
+    []
   );
 
   const handleAddPlace = useCallback(
@@ -134,6 +134,16 @@ const App = () => {
     []
   );
 
+  const checkToken = useCallback(async () => {
+    try {
+      const user = await api.getUserInfo();
+      setEmail(user.email);
+      setLoggedIn(true);
+    } catch (err) {
+      handleError(err, 'Ошибка проверки токена');
+    }
+  }, []);
+
   const onLogin = useCallback(
     (userData) =>
       uxWrap(
@@ -174,16 +184,6 @@ const App = () => {
       },
       'Регистрация...'
     );
-  }, []);
-
-  const checkToken = useCallback(async () => {
-    try {
-      const user = await api.getUserInfo();
-      setEmail(user.email);
-      setLoggedIn(true);
-    } catch (err) {
-      handleError(err, 'Ошибка проверки токена');
-    }
   }, []);
 
   const onSignOut = useCallback(async (id) => {

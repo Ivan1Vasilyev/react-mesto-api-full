@@ -5,9 +5,10 @@ import Field from './Field';
 
 const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
   const { formik, disabled } = useForm({ name: '', link: '' }, onAddPlace);
+  const { touched, errors, resetForm, handleSubmit } = formik;
 
   useEffect(() => {
-    if (isOpen) formik.resetForm();
+    if (isOpen) resetForm();
   }, [isOpen]);
 
   return (
@@ -16,12 +17,12 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
       title="Новое место"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={formik.handleSubmit}
+      onSubmit={handleSubmit}
       disabled={disabled}
       buttonText="Создать"
     >
       <Field
-        className={`form__input ${formik.touched.name && formik.errors.name && 'form__input_type_error'}`}
+        className={`form__input ${touched.name && errors.name && 'form__input_type_error'}`}
         type="text"
         placeholder="Название"
         name="name"
@@ -29,7 +30,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
         errorClass="form"
       />
       <Field
-        className={`form__input ${formik.touched.link && formik.errors.link && 'form__input_type_error'}`}
+        className={`form__input ${touched.link && errors.link && 'form__input_type_error'}`}
         type="url"
         placeholder="Ссылка на картинку"
         name="link"

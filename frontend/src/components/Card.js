@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const Card = ({ card, onCardDelete, showFullImageClick, onCardLike }) => {
-  const currentUserId = useContext(CurrentUserContext)._id;
-  const isOwner = card.owner._id === currentUserId;
-  const isLiked = card.likes.some((i) => i._id === currentUserId);
+  const { _id } = useContext(CurrentUserContext);
+  const isOwner = card.owner._id === _id;
+  const isLiked = card.likes.some((i) => i._id === _id);
 
   return (
     <li className="card">
@@ -24,7 +24,7 @@ const Card = ({ card, onCardDelete, showFullImageClick, onCardLike }) => {
           className="card__delete"
           type="button"
           aria-label="Удалить карточку"
-          onClick={() => onCardDelete(card)}
+          onClick={() => onCardDelete(card._id)}
         ></button>
       )}
     </li>

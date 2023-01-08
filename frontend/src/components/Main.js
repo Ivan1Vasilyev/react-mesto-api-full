@@ -3,23 +3,23 @@ import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 const Main = (props) => {
-  const currentUser = useContext(CurrentUserContext);
+  const { name, about, avatar } = useContext(CurrentUserContext);
 
   return (
     <main className="content">
       <section className="profile">
         <button className="profile__edit-avatar" onClick={props.onEditAvatar}>
-          <img className="profile__avatar" src={currentUser.avatar} alt="Аватар" />
+          <img className="profile__avatar" src={avatar} alt="Аватар" />
         </button>
         <div className="profile__info">
-          <h1 className="profile__user-name">{currentUser.name}</h1>
+          <h1 className="profile__user-name">{name}</h1>
           <button
             className="profile__edit-button"
             type="button"
             aria-label="Редактировать профиль"
             onClick={props.onEditProfile}
           ></button>
-          <p className="profile__user-info">{currentUser.about}</p>
+          <p className="profile__user-info">{about}</p>
         </div>
         <button
           className="profile__button"
