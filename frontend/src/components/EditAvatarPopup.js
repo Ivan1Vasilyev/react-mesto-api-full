@@ -1,23 +1,15 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
+import useForm from '../hooks/useForm';
+import Field from './Field';
 
 const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
-  const inputRef = useRef();
-  const [inputsValidate, setInputsValidate] = useState({ avatar: {} });
+  const { formik, disabled } = useForm({ avatar: '' }, onUpdateAvatar);
 
   useEffect(() => {
-    if (isOpen) inputRef.current.value = '';
+    if (isOpen) formik.resetForm();
   }, [isOpen]);
 
-  const getValidateData = useCallback(validateData => setInputsValidate(validateData), []);
-
-  const handleSubmit = useCallback(
-    () =>
-      onUpdateAvatar({
-        avatar: inputRef.current.value,
-      }),
-    [inputRef]
-  );
   return (
     <PopupWithForm
       name="edit-avatar"
@@ -25,18 +17,17 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
       type="popup__form-container_type_edit-avatar"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}
-      validate={getValidateData}
+      onSubmit={formik.handleSubmit}
+      disabled={disabled}
     >
-      <input
-        ref={inputRef}
-        className={`form__input ${inputsValidate.avatar.isInvalid && 'form__input_type_error'}`}
+      <Field
+        className={`form__input ${formik.touched.avatar && formik.errors.avatar && 'form__input_type_error'}`}
         type="url"
         placeholder="Ссылка на новый аватар"
         name="avatar"
-        required
+        formik={formik}
+        errorClass="form"
       />
-      <span className="form__input-error">{inputsValidate.avatar.message}</span>
     </PopupWithForm>
   );
 };

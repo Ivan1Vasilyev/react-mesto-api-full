@@ -1,14 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
-const useForm = (inputValues) => {
-  const [values, setValues] = useState(inputValues);
+const errorMessages = {
+  required: 'Заполните это поле',
+  min: 'Должно быть 2 символа или больше',
+  max: 'Должно быть 30 символов или меньше',
+  url: 'Введите корректный URL-адрес',
+  email: 'Введите корректный email',
+  password: 'Должно быть 4 символа или больше',
+};
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
-  };
+const validators = {
+  name: Yup.string().min(2, errorMessages.min).max(30, errorMessages.max).required(errorMessages.required),
+  about: Yup.string().min(2, errorMessages.min).max(30, errorMessages.max).required(errorMessages.required),
+  avatar: Yup.string().url(errorMessages.url).required(errorMessages.required),
+  link: Yup.string().url(errorMessages.url).required(errorMessages.required),
+  email: Yup.string().email(errorMessages.email).required(errorMessages.required),
+  password: Yup.string().min(4, errorMessages.password).required(errorMessages.required),
+};
 
-  return { values, setValues, handleChange };
+const useForm = (inputs, submitHandler) => {
+  const [disabled, setDisabled] = useState(true);
+
+  const formik = useFormik({
+    initialValues: inputs,
+    validationSchema: Yup.object(Object.keys(inputs).reduce((acc, item) => ({ ...acc, [item]: validators[item] }), {})),
+    onSubmit: (values) => {
+      setDisabled(true);
+      return submitHandler(values);
+    },
+  });
+
+  useEffect(() => {
+    formik.isValid && formik.dirty ? setDisabled(false) : setDisabled(true);
+  }, [formik.dirty, formik.isValid, formik.isValidating]);
+
+  return { formik, disabled };
 };
 
 export default useForm;

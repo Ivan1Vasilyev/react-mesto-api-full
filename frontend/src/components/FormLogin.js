@@ -1,62 +1,35 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { PopupOnLoadContext } from '../contexts/PopupOnLoadContext';
-import useForm from '../hooks/useForm';
+import useValidateForm from '../hooks/useForm';
+import Field from './Field';
 
 const FormLogin = (props) => {
   const textLoading = useContext(PopupOnLoadContext);
-  const [inputsValidate, setInputsValidate] = useState({ email: '', password: '' });
-  const [isFormInvalid, setIsFormInvalid] = useState(true);
-  const { values, handleChange } = useForm({ email: '', password: '' });
 
-  const handleFormValidation = (e) => {
-    const { name, validationMessage } = e.target;
-    setInputsValidate({
-      ...inputsValidate,
-      [name]: validationMessage,
-    });
-    setIsFormInvalid(!e.currentTarget.checkValidity());
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.onSubmit(values);
-    setIsFormInvalid(true);
-  };
+  const { formik, disabled } = useValidateForm({ email: '', password: '' }, props.onSubmit);
 
   return (
     <div className="form-login">
-      <form
-        className="form-login__form"
-        name={props.name}
-        onSubmit={handleSubmit}
-        onChange={handleFormValidation}
-        noValidate
-      >
+      <form className="form-login__form" name={props.name} onSubmit={formik.handleSubmit} noValidate>
         <h2 className="form-login__title">{props.title}</h2>
-        <input
+        <Field
           className="form-login__input"
           type="email"
-          name="email"
           placeholder="Email"
-          value={values.email}
-          onChange={handleChange}
-          required
+          name="email"
+          formik={formik}
+          errorClass="form-login"
         />
-        <span className="form-login__input-error">{inputsValidate.email}</span>
-        <input
+        <Field
           className="form-login__input"
           type="password"
+          placeholder="Password"
           name="password"
-          minLength={4}
-          placeholder="Пароль"
-          autoComplete="on"
-          value={values.password}
-          onChange={handleChange}
-          required
+          formik={formik}
+          errorClass="form-login"
         />
-        <span className="form-login__input-error">{inputsValidate.password}</span>
-        <button className="form-login__submit-button" type="submit" disabled={isFormInvalid}>
+        <button className="form-login__submit-button" type="submit" disabled={disabled}>
           {textLoading ? textLoading : props.buttonText}
         </button>
       </form>

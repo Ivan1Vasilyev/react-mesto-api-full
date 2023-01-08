@@ -1,54 +1,23 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import Popup from './Popup';
 import { PopupOnLoadContext } from '../contexts/PopupOnLoadContext';
 
 const PopupWithForm = (props) => {
   const textLoading = useContext(PopupOnLoadContext);
-  const resetValidator = () =>
-    props.children
-      ?.filter((item) => item.type === 'input')
-      .reduce((acc, item) => ({ ...acc, [item.props.name]: {} }), {});
-  const [isFormInvalid, setIsFormInvalid] = useState(false);
-  const [validator, setValidator] = useState(resetValidator());
-
-  useEffect(() => {
-    if (props.isOpen) {
-      !props.children ? setIsFormInvalid(false) : setIsFormInvalid(true);
-      setValidator(resetValidator());
-    }
-  }, [props.isOpen]);
-
-  useEffect(() => {
-    if (props.validate) props.validate(validator);
-  }, [validator]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     props.onSubmit();
-    setIsFormInvalid(true);
-  };
-
-  const handleFormValidation = (e) => {
-    const { name, validationMessage, validity } = e.target;
-    setValidator({
-      ...validator,
-      [name]: {
-        message: validationMessage,
-        isInvalid: !validity.valid,
-      },
-    });
-    setIsFormInvalid(!e.currentTarget.checkValidity());
   };
 
   return (
     <Popup onClose={props.onClose} type={`popup__form-container ${props.type}`} isOpen={props.isOpen}>
-      <form className="form" name={props.name} onSubmit={handleSubmit} onChange={handleFormValidation} noValidate>
+      <form className="form" name={props.name} onSubmit={handleSubmit} noValidate>
         <h2 className={`form__title ${props.titleClassType}`}>{props.title}</h2>
         {props.children}
         <button
-          className={`form__submit-button ${isFormInvalid && 'form__submit-button_disabled'}`}
+          className={`form__submit-button ${props.disabled && 'form__submit-button_disabled'}`}
           type="submit"
-          disabled={isFormInvalid}
+          disabled={props.disabled}
         >
           {textLoading ? textLoading : props.buttonText || 'Сохранить'}
         </button>

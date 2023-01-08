@@ -179,7 +179,6 @@ const App = () => {
   const checkToken = useCallback(async () => {
     try {
       const user = await api.getUserInfo();
-      if (!user) throw new Error('Такого пользователя нет в базе.');
       setEmail(user.email);
       setLoggedIn(true);
     } catch (err) {

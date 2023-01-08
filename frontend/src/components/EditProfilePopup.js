@@ -1,19 +1,19 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import useForm from '../hooks/useForm';
+import Field from './Field';
 
 const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   const currentUser = useContext(CurrentUserContext);
-  const [inputsValidate, setInputsValidate] = useState({ name: {}, about: {} });
-  const { values, setValues, handleChange } = useForm({ name: '', about: '' });
-
-  const getValidateData = useCallback((validateData) => setInputsValidate(validateData), []);
-
-  const handleSubmit = useCallback(() => onUpdateUser(values), [values, onUpdateUser]);
+  const { formik, disabled } = useForm({ name: '', about: '' }, onUpdateUser);
 
   useEffect(() => {
-    if (isOpen) setValues({ name: currentUser.name, about: currentUser.about });
+    if (isOpen) {
+      formik.resetForm({
+        values: { name: currentUser.name, about: currentUser.about },
+      });
+    }
   }, [isOpen]);
 
   return (
@@ -22,31 +22,23 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
       title="Редактировать профиль"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}
-      validate={getValidateData}
+      onSubmit={formik.handleSubmit}
+      disabled={disabled}
     >
-      <input
-        className={`form__input ${inputsValidate.name.message && 'form__input_type_error'}`}
+      <Field
+        className={`form__input ${formik.touched.name && formik.errors.name && 'form__input_type_error'}`}
         type="text"
         name="name"
-        minLength="2"
-        maxLength="30"
-        value={values.name}
-        onChange={handleChange}
-        required
+        formik={formik}
+        errorClass="form"
       />
-      <span className="form__input-error">{inputsValidate.name.message}</span>
-      <input
-        className={`form__input ${inputsValidate.about.isInvalid && 'form__input_type_error'}`}
+      <Field
+        className={`form__input ${formik.touched.about && formik.errors.about && 'form__input_type_error'}`}
         type="text"
         name="about"
-        minLength="2"
-        maxLength="30"
-        value={values.about}
-        onChange={handleChange}
-        required
+        formik={formik}
+        errorClass="form"
       />
-      <span className="form__input-error">{inputsValidate.about.message}</span>
     </PopupWithForm>
   );
 };
