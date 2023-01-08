@@ -11,9 +11,10 @@ const { getErrorMessages } = require('../utils/handle-errors');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const findUser = async (res, next, id) => {
+const getUserData = async (req, res, next) => {
+  const { _id } = req.user;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(_id);
     if (!user) {
       return next(new NotFoundError(`${NOT_EXISTS_MESSAGE}: Пользователь не найден.`));
     }
@@ -46,23 +47,14 @@ const updateUser = async (req, res, next, updates) => {
   }
 };
 
-const getUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({});
-    return res.json(users);
-  } catch (e) {
-    return next(e);
-  }
+const upDateUserData = async (req, res, next) => {
+  const { name, about } = req.body;
+  return updateUser(req, res, next, { name: escape(name), about: escape(about) });
 };
 
-const getUser = async (req, res, next) => {
-  const { userId } = req.params;
-  return findUser(res, next, userId);
-};
-
-const getUserData = async (req, res, next) => {
-  const { _id } = req.user;
-  return findUser(res, next, _id);
+const upDateUserAvatar = async (req, res, next) => {
+  const { avatar } = req.body;
+  return updateUser(req, res, next, { avatar });
 };
 
 const createUser = async (req, res, next) => {
@@ -92,16 +84,6 @@ const createUser = async (req, res, next) => {
     }
     return next(e);
   }
-};
-
-const upDateUserData = async (req, res, next) => {
-  const { name, about } = req.body;
-  return updateUser(req, res, next, { name: escape(name), about: escape(about) });
-};
-
-const upDateUserAvatar = async (req, res, next) => {
-  const { avatar } = req.body;
-  return updateUser(req, res, next, { avatar });
 };
 
 const login = async (req, res, next) => {
@@ -166,8 +148,6 @@ const logout = async (req, res, next) => {
 };
 
 module.exports = {
-  getUser,
-  getUsers,
   createUser,
   upDateUserData,
   upDateUserAvatar,

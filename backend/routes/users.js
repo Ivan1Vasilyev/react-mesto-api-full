@@ -1,19 +1,9 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const {
-  getUser,
-  getUsers,
-  upDateUserData,
-  upDateUserAvatar,
-  getUserData,
-} = require('../controllers/users');
-const { joiNameOrAbout, joiUrl, joiId } = require('../utils/joi-validators');
-
-router.get('/', getUsers);
+const { upDateUserData, upDateUserAvatar, getUserData } = require('../controllers/users');
+const { joiNameOrAbout, joiUrl } = require('../utils/joi-validators');
 
 router.get('/me', getUserData);
-
-router.get('/:userId', celebrate({ params: Joi.object().keys({ userId: joiId() }) }), getUser);
 
 router.patch(
   '/me',

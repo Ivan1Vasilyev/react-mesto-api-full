@@ -1,27 +1,23 @@
-const address = 'https://api.shaloban.students.nomoredomains.club';
+const baseUrl = 'https://api.shaloban.students.nomoredomains.club';
 const headers = {
   'Content-Type': 'application/json',
-  'Access-Control-Allow-Credentials': true,
-  origin: 'https://api.shaloban.students.nomoredomains.club',
+  origin: baseUrl,
 };
 let currentUserId;
 
 const responseHandler = (response) => (response.ok ? response.json() : Promise.reject(response.json()));
 
 export const register = async (userData) => {
-  const response = await fetch(`${address}/signup`, {
+  const response = await fetch(`${baseUrl}/signup`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      origin: address,
-    },
+    headers,
     body: JSON.stringify(userData),
   });
   return responseHandler(response);
 };
 
 export const login = async (userData) => {
-  const response = await fetch(`${address}/signin`, {
+  const response = await fetch(`${baseUrl}/signin`, {
     method: 'POST',
     headers,
     body: JSON.stringify(userData),
@@ -31,7 +27,7 @@ export const login = async (userData) => {
 };
 
 export const logout = async (_id) => {
-  const response = await fetch(`${address}/signout`, {
+  const response = await fetch(`${baseUrl}/signout`, {
     method: 'POST',
     headers,
     body: JSON.stringify({ _id }),
@@ -41,7 +37,7 @@ export const logout = async (_id) => {
 };
 
 export const getUserInfo = async () => {
-  const res = await fetch(`${address}/users/me`, {
+  const res = await fetch(`${baseUrl}/users/me`, {
     method: 'GET',
     headers,
     credentials: 'include',
@@ -53,7 +49,7 @@ export const getUserInfo = async () => {
 };
 
 const getDefaultCards = async () => {
-  const response = await fetch(`${address}/cards`, {
+  const response = await fetch(`${baseUrl}/cards`, {
     method: 'GET',
     headers,
     credentials: 'include',
@@ -64,7 +60,7 @@ const getDefaultCards = async () => {
 export const loadDefaultData = () => Promise.all([getUserInfo(), getDefaultCards()]);
 
 export const editUserData = async (newData) => {
-  const response = await fetch(`${address}/users/me`, {
+  const response = await fetch(`${baseUrl}/users/me`, {
     method: 'PATCH',
     headers,
     body: JSON.stringify(newData),
@@ -74,7 +70,7 @@ export const editUserData = async (newData) => {
 };
 
 export const setUserAvatar = async (link) => {
-  const response = await fetch(`${address}/users/me/avatar`, {
+  const response = await fetch(`${baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers,
     body: JSON.stringify(link),
@@ -84,7 +80,7 @@ export const setUserAvatar = async (link) => {
 };
 
 export const addCard = async (card) => {
-  const response = await fetch(`${address}/cards`, {
+  const response = await fetch(`${baseUrl}/cards`, {
     method: 'POST',
     headers,
     body: JSON.stringify(card),
@@ -94,7 +90,7 @@ export const addCard = async (card) => {
 };
 
 const addLikeCard = async (id) => {
-  const response = await fetch(`${address}/cards/${id}/likes`, {
+  const response = await fetch(`${baseUrl}/cards/${id}/likes`, {
     method: 'PUT',
     headers,
     credentials: 'include',
@@ -103,7 +99,7 @@ const addLikeCard = async (id) => {
 };
 
 const removeLikeCard = async (id) => {
-  const response = await fetch(`${address}/cards/${id}/likes`, {
+  const response = await fetch(`${baseUrl}/cards/${id}/likes`, {
     method: 'DELETE',
     headers,
     credentials: 'include',
@@ -115,7 +111,7 @@ export const toggleLike = (card) =>
   card.likes.some((user) => user._id === currentUserId) ? removeLikeCard(card._id) : addLikeCard(card._id);
 
 export const deleteCard = async (id) => {
-  const response = await fetch(`${address}/cards/${id}`, {
+  const response = await fetch(`${baseUrl}/cards/${id}`, {
     method: 'DELETE',
     headers,
     credentials: 'include',

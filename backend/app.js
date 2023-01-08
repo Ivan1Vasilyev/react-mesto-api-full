@@ -10,7 +10,6 @@ const cors = require('cors');
 const router = require('./routes');
 const { NOT_EXISTS_MESSAGE } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
 const centralizedErrorHandler = require('./errors/centralized-error-handler');
 
 const { PORT = 3000, MONGO_PORT = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
@@ -36,7 +35,6 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(requestLogger);
 app.use(limiter);
 app.use(cors(corsOptions));
 app.use(helmet());
@@ -46,7 +44,7 @@ app.use(router);
 app.use('*', (req, res, next) => {
   next(new NotFoundError(NOT_EXISTS_MESSAGE));
 });
-app.use(errorLogger);
+
 app.use(errors());
 
 app.use(centralizedErrorHandler);
