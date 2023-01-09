@@ -4,14 +4,10 @@ import { PopupOnLoadContext } from '../contexts/PopupOnLoadContext';
 
 const PopupWithForm = (props) => {
   const textLoading = useContext(PopupOnLoadContext);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.onSubmit();
-  };
 
   return (
     <Popup onClose={props.onClose} type={`popup__form-container ${props.type}`} isOpen={props.isOpen}>
-      <form className="form" name={props.name} onSubmit={handleSubmit} noValidate>
+      <form className="form" name={props.name} onSubmit={props.onSubmit} noValidate>
         <h2 className={`form__title ${props.titleClassType}`}>{props.title}</h2>
         {props.children}
         <button
