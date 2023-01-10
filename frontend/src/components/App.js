@@ -19,6 +19,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { PopupOnLoadContext } from '../contexts/PopupOnLoadContext';
 import * as api from '../utils/api.js';
 import { uxWrap, handleError } from '../utils/utils';
+import { ROUTE_SIGN_UP, ROUTE_SIGN_IN, ROUTE_MAIN } from '../utils/constants';
 
 const App = () => {
   const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false);
@@ -232,7 +233,7 @@ const App = () => {
             <ProtectedRoute
               component={Main}
               loggedIn={loggedIn}
-              path="/main"
+              path={ROUTE_MAIN}
               onEditAvatar={openEditAvatarPopup}
               onEditProfile={openEditProfilePopup}
               onAddPlace={openAddPlacePopup}
@@ -241,14 +242,14 @@ const App = () => {
               onCardLike={handleCardLike}
               onCardDelete={openDeleteCardPopup}
             />
-            <Route path="/signin">
+            <Route path={ROUTE_SIGN_IN}>
               <Login name="login" loggedIn={loggedIn} onSubmit={onLogin} />
             </Route>
-            <Route path="/signup">
+            <Route path={ROUTE_SIGN_UP}>
               <Register name="register" loggedIn={loggedIn} onSubmit={onRegister} />
             </Route>
             <Route exact path="/">
-              {loggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
+              {loggedIn ? <Redirect to={ROUTE_MAIN} /> : <Redirect to={ROUTE_SIGN_IN} />}
             </Route>
             <Route path="*">
               <PageNotFound />
