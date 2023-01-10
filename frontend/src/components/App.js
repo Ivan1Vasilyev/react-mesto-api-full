@@ -174,7 +174,7 @@ const App = () => {
           if (res) {
             setIsTooltipOnError(false);
             setIsInfoTooltipOpen(true);
-            history.push('/signin');
+            history.push(ROUTE_SIGN_IN);
           }
         } catch (err) {
           const errorMessage = await handleError(err);

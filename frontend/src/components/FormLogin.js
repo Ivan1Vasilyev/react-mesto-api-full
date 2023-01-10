@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { PopupOnLoadContext } from '../contexts/PopupOnLoadContext';
 import useValidateForm from '../hooks/useForm';
 import Field from './Field';
+import { ROUTE_SIGN_IN } from '../utils/constants';
 
 const FormLogin = (props) => {
   const textLoading = useContext(PopupOnLoadContext);
@@ -36,7 +37,7 @@ const FormLogin = (props) => {
       {props.isRegister && (
         <p className="form-login__caption">
           {'Уже зарегистрированы? '}
-          <Link to="/signin" className="form-login__link">
+          <Link to={ROUTE_SIGN_IN} className="form-login__link">
             Войти
           </Link>
         </p>

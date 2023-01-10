@@ -10,11 +10,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   const { touched, errors, resetForm, handleSubmit } = formik;
 
   useEffect(() => {
-    if (isOpen) {
-      resetForm({
-        values: { name, about },
-      });
-    }
+    if (isOpen) resetForm({ values: { name, about } });
   }, [isOpen]);
 
   return (
