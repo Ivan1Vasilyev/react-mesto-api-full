@@ -1,14 +1,14 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { PopupOnLoadContext } from '../contexts/PopupOnLoadContext';
-import useValidateForm from '../hooks/useForm';
+import useForm from '../hooks/useForm';
 import Field from './Field';
 import { ROUTE_SIGN_IN } from '../utils/constants';
 
 const FormLogin = (props) => {
   const textLoading = useContext(PopupOnLoadContext);
 
-  const { formik, disabled } = useValidateForm({ email: '', password: '' }, props.onSubmit);
+  const { formik, disabled } = useForm({ email: '', password: '' }, props.onSubmit);
 
   return (
     <div className="form-login">
