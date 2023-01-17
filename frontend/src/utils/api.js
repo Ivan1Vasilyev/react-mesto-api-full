@@ -3,11 +3,10 @@ const headers = {
   'Content-Type': 'application/json',
   origin: baseUrl,
 };
-let currentUserId;
 
-const responseHandler = (response) => (response.ok ? response.json() : Promise.reject(response.json()));
+const responseHandler = response => (response.ok ? response.json() : Promise.reject(response.json()));
 
-export const register = async (userData) => {
+export const register = async userData => {
   const response = await fetch(`${baseUrl}/signup`, {
     method: 'POST',
     headers,
@@ -16,7 +15,7 @@ export const register = async (userData) => {
   return responseHandler(response);
 };
 
-export const login = async (userData) => {
+export const login = async userData => {
   const response = await fetch(`${baseUrl}/signin`, {
     method: 'POST',
     headers,
@@ -26,7 +25,7 @@ export const login = async (userData) => {
   return responseHandler(response);
 };
 
-export const logout = async (_id) => {
+export const logout = async _id => {
   const response = await fetch(`${baseUrl}/signout`, {
     method: 'POST',
     headers,
@@ -42,10 +41,7 @@ export const getUserInfo = async () => {
     headers,
     credentials: 'include',
   });
-
-  const response = await responseHandler(res);
-  currentUserId = response._id;
-  return response;
+  return responseHandler(res);
 };
 
 const getDefaultCards = async () => {
@@ -59,7 +55,7 @@ const getDefaultCards = async () => {
 
 export const loadDefaultData = () => Promise.all([getUserInfo(), getDefaultCards()]);
 
-export const editUserData = async (newData) => {
+export const editUserData = async newData => {
   const response = await fetch(`${baseUrl}/users/me`, {
     method: 'PATCH',
     headers,
@@ -69,7 +65,7 @@ export const editUserData = async (newData) => {
   return responseHandler(response);
 };
 
-export const setUserAvatar = async (link) => {
+export const setUserAvatar = async link => {
   const response = await fetch(`${baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers,
@@ -79,7 +75,7 @@ export const setUserAvatar = async (link) => {
   return responseHandler(response);
 };
 
-export const addCard = async (card) => {
+export const addCard = async card => {
   const response = await fetch(`${baseUrl}/cards`, {
     method: 'POST',
     headers,
@@ -89,7 +85,7 @@ export const addCard = async (card) => {
   return responseHandler(response);
 };
 
-const addLikeCard = async (id) => {
+const addLikeCard = async id => {
   const response = await fetch(`${baseUrl}/cards/${id}/likes`, {
     method: 'PUT',
     headers,
@@ -98,7 +94,7 @@ const addLikeCard = async (id) => {
   return responseHandler(response);
 };
 
-const removeLikeCard = async (id) => {
+const removeLikeCard = async id => {
   const response = await fetch(`${baseUrl}/cards/${id}/likes`, {
     method: 'DELETE',
     headers,
@@ -107,10 +103,10 @@ const removeLikeCard = async (id) => {
   return responseHandler(response);
 };
 
-export const toggleLike = (card) =>
-  card.likes.some((user) => user._id === currentUserId) ? removeLikeCard(card._id) : addLikeCard(card._id);
+export const toggleLike = (cardId, currentUserId) =>
+  card.likes.some(user => user._id === currentUserId) ? removeLikeCard(cardId) : addLikeCard(cardId);
 
-export const deleteCard = async (id) => {
+export const deleteCard = async id => {
   const response = await fetch(`${baseUrl}/cards/${id}`, {
     method: 'DELETE',
     headers,
