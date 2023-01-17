@@ -108,10 +108,10 @@ const App = () => {
     []
   );
 
-  const handleCardLike = useCallback(async (card) => {
+  const handleCardLike = useCallback(async (cardId, isLiked) => {
     try {
-      const updatedCard = await api.toggleLike(card);
-      setCards((state) => state.map((c) => (c._id === card._id ? updatedCard : c)));
+      const updatedCard = await api.toggleLike(cardId, isLiked);
+      setCards((state) => state.map((c) => (c._id === cardId ? updatedCard : c)));
     } catch (err) {
       handleError(err, 'Ошибка загрузки данных лайка карточки.');
     }
