@@ -5,10 +5,16 @@
   background-image: url(../../../images/like.svg);
   background-color: #fff;
   justify-self: center;
-  transition: .4s;
+  transition: 0.4s;
 }
 
 .card__like:hover {
   cursor: pointer;
-  opacity: .5;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 880px) {
+  .card__like:hover {
+    opacity: 1;
+  }
 }

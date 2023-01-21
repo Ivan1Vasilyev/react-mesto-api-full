@@ -12,6 +12,12 @@
 
 .card__delete:hover {
   cursor: pointer;
-  opacity: .6;
-  transition: .4s;
+  opacity: 0.6;
+  transition: 0.4s;
+}
+
+@media screen and (max-width: 880px) {
+  .card__delete:hover {
+    opacity: 1;
+  }
 }

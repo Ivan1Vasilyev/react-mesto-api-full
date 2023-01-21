@@ -1,7 +1,7 @@
 const baseUrl = 'https://api.shaloban.students.nomoredomains.club';
 const headers = {
   'Content-Type': 'application/json',
-  origin: baseUrl,
+  // origin: baseUrl,
 };
 
 const responseHandler = (response) => (response.ok ? response.json() : Promise.reject(response.json()));

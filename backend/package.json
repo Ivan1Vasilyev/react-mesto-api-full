@@ -8,7 +8,6 @@
     "dev": "nodemon app.js",
     "lint": "npx eslint ."
   },
-  "keywords": [],
   "author": "Ivan Vasilyev",
   "license": "ISC",
   "devDependencies": {

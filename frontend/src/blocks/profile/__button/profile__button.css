@@ -10,12 +10,18 @@
   background-image: url(../../../images/add.svg);
   background-repeat: no-repeat;
   background-position: center center;
-  transition: .4s;
+  transition: 0.4s;
 }
 
 .profile__button:hover {
   cursor: pointer;
-  opacity: .6;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 880px) {
+  .profile__button:hover {
+    opacity: 1;
+  }
 }
 
 @media screen and (max-width: 880px) {

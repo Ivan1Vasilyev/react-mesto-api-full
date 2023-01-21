@@ -24,7 +24,7 @@
   opacity: 0.6;
 }
 
-@media (hover: none) {
+@media screen and (max-width: 880px) {
   .header__menu:hover {
     opacity: 1;
   }

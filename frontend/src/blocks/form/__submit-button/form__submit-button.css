@@ -10,7 +10,13 @@
 
 .form__submit-button:hover {
   cursor: pointer;
-  opacity: .8;
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 880px) {
+  .form__submit-button:hover {
+    opacity: 1;
+  }
 }
 
 @media screen and (max-width: 590px) {
