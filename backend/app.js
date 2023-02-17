@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { errors } = require('celebrate');
@@ -34,6 +35,7 @@ app.use(cors(corsOptions));
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(router);
 app.use('*', (req, res, next) => {
   next(new NotFoundError(NOT_EXISTS_MESSAGE));
@@ -43,7 +45,7 @@ app.use(errors());
 
 app.use(centralizedErrorHandler);
 
-mongoose.connect(MONGO_PORT, { useNewUrlParser: true }, (err) => {
+mongoose.connect(MONGO_PORT, { useNewUrlParser: true }, err => {
   if (err) {
     console.log(`Can't connect to MongoDB. ${err}`);
     return;
