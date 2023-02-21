@@ -36,7 +36,7 @@ app.use(
   helmet({
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false,
-    frameguard: false, // Needed for Code Sandbox (not part of the solution)
+    frameguard: false,
   })
 );
 // app.use(

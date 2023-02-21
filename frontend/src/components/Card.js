@@ -9,7 +9,7 @@ const Card = ({ card, onCardDelete, showFullImageClick, onCardLike }) => {
   return (
     <li className="card">
       <img
-        crossorigin="anonymous"
+        // crossorigin="anonymous"
         className="card__image"
         src={card.link}
         alt={card.name}
