@@ -4,11 +4,17 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 const Card = ({ card, onCardDelete, showFullImageClick, onCardLike }) => {
   const currentUserId = useContext(CurrentUserContext)._id;
   const isOwner = card.owner._id === currentUserId;
-  const isLiked = card.likes.some((i) => i._id === currentUserId);
+  const isLiked = card.likes.some(i => i._id === currentUserId);
 
   return (
     <li className="card">
-      <img className="card__image" src={card.link} alt={card.name} onClick={() => showFullImageClick(card)} />
+      <img
+        crossorigin="anonymous"
+        className="card__image"
+        src={card.link}
+        alt={card.name}
+        onClick={() => showFullImageClick(card)}
+      />
       <h2 className="card__caption">{card.name}</h2>
       <div className="card__like-container">
         <button

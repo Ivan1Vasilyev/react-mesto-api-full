@@ -2,14 +2,14 @@ import { useContext } from 'react';
 import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-const Main = (props) => {
+const Main = props => {
   const { name, about, avatar } = useContext(CurrentUserContext);
 
   return (
     <main className="content">
       <section className="profile">
         <button className="profile__edit-avatar" onClick={props.onEditAvatar}>
-          <img className="profile__avatar" src={avatar} alt="Аватар" />
+          <img crossorigin="anonymous" className="profile__avatar" src={avatar} alt="Аватар" />
         </button>
         <div className="profile__info">
           <h1 className="profile__user-name">{name}</h1>
@@ -31,7 +31,7 @@ const Main = (props) => {
       <section className="elements">
         <ul className="elements__container">
           {props.cards
-            .map((card) => (
+            .map(card => (
               <Card
                 key={card._id}
                 card={card}
