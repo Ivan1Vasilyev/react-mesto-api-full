@@ -22,7 +22,7 @@ const limiter = rateLimit({
   max: 300,
 });
 
-const allowedCors = ['https://api.moovies.nomoredomains.rocks', 'http://localhost:3000'];
+const allowedCors = ['https://moovies.nomoredomains.work', 'http://localhost:3000'];
 
 const corsOptions = {
   origin: allowedCors,
