@@ -32,6 +32,7 @@ const corsOptions = {
 
 app.use(limiter);
 app.use(cors(corsOptions));
+app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
