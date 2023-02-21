@@ -32,7 +32,12 @@ const corsOptions = {
 
 app.use(limiter);
 app.use(cors(corsOptions));
-app.use(helmet({ contentSecurityPolicy: false }));
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: { 'img-src': ["'self'", 'https: data:'] },
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use('/api', router);
