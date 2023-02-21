@@ -22,7 +22,7 @@ const limiter = rateLimit({
   max: 300,
 });
 
-const allowedCors = ['https://shaloban.students.nomoredomains.club'];
+const allowedCors = ['https://api.moovies.nomoredomains.rocks', 'http://localhost:3000'];
 
 const corsOptions = {
   origin: allowedCors,
@@ -35,8 +35,9 @@ app.use(cors(corsOptions));
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
+app.use('/api', router);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(router);
+// app.use(router);
 app.use('*', (req, res, next) => {
   next(new NotFoundError(NOT_EXISTS_MESSAGE));
 });
