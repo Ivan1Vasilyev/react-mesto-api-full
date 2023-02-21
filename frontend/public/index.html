@@ -5,8 +5,11 @@
   <meta charset="utf-8" />
   <link rel="icon" href="%PUBLIC_URL%/Kusto.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/image.ico" />
+  <meta http-equiv="Content-Security-Policy" content="
+      worker-src blob:; 
+      child-src blob: gap:;
+      img-src 'self' blob: data:;
+      default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
   <title>Mesto-React</title>
 </head>
 
