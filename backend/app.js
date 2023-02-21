@@ -21,7 +21,7 @@ const limiter = rateLimit({
   max: 300,
 });
 
-const allowedCors = ['https://shaloban.students.nomoredomains.club'];
+const allowedCors = ['https://moovies.nomoredomains.work', 'http://localhost:3000'];
 
 const corsOptions = {
   origin: allowedCors,
@@ -43,7 +43,7 @@ app.use(errors());
 
 app.use(centralizedErrorHandler);
 
-mongoose.connect(MONGO_PORT, { useNewUrlParser: true }, (err) => {
+mongoose.connect(MONGO_PORT, { useNewUrlParser: true }, err => {
   if (err) {
     console.log(`Can't connect to MongoDB. ${err}`);
     return;
