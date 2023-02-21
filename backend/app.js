@@ -32,13 +32,19 @@ const corsOptions = {
 
 app.use(limiter);
 app.use(cors(corsOptions));
-app.use(helmet());
 app.use(
-  helmet.contentSecurityPolicy({
-    useDefaults: true,
-    directives: { 'img-src': ["'self'", 'https: data:'] },
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+    frameguard: false, // Needed for Code Sandbox (not part of the solution)
   })
 );
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     useDefaults: true,
+//     directives: { 'img-src': ["'self'", 'https: data:'] },
+//   })
+// );
 app.use(cookieParser());
 app.use(express.json());
 app.use('/api', router);
