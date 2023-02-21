@@ -1,4 +1,4 @@
-const baseUrl = 'https://moovies.nomoredomains.work';
+const baseUrl = 'https://moovies.nomoredomains.work/api';
 const headers = { 'Content-Type': 'application/json' };
 
 const responseHandler = response => (response.ok ? response.json() : Promise.reject(response.json()));
