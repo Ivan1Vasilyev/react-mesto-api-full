@@ -8,8 +8,7 @@ const NotValidError = require('../errors/not-valid');
 const NotAuthorizedError = require('../errors/not-authorized');
 const SameEmailError = require('../errors/same-email');
 const { getErrorMessages } = require('../utils/handle-errors');
-
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { tokenKey } = require('../utils/configs');
 
 const getUserData = async (req, res, next) => {
   const { _id } = req.user;
@@ -99,9 +98,8 @@ const login = async (req, res, next) => {
       return next(new NotAuthorizedError('Неправильные почта или пароль'));
     }
 
-    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key', {
-      expiresIn: '7d',
-    });
+    const token = jwt.sign({ _id: user._id }, tokenKey, { expiresIn: '7d' });
+
     return res
       .cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
@@ -123,9 +121,7 @@ const logout = async (req, res, next) => {
       return next(new NotFoundError(`${NOT_EXISTS_MESSAGE}: Пользователь не найден.`));
     }
 
-    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key', {
-      expiresIn: -1,
-    });
+    const token = jwt.sign({ _id: user._id }, tokenKey, { expiresIn: -1 });
 
     return res
       .cookie('jwt', token, {
