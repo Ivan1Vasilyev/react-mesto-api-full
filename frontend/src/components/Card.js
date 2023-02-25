@@ -8,13 +8,7 @@ const Card = ({ card, onCardDelete, showFullImageClick, onCardLike }) => {
 
   return (
     <li className="card">
-      <img
-        // crossorigin="anonymous"
-        className="card__image"
-        src={card.link}
-        alt={card.name}
-        onClick={() => showFullImageClick(card)}
-      />
+      <img className="card__image" src={card.link} alt={card.name} onClick={() => showFullImageClick(card)} />
       <h2 className="card__caption">{card.name}</h2>
       <div className="card__like-container">
         <button

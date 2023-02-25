@@ -9,7 +9,7 @@ const Main = props => {
     <main className="content">
       <section className="profile">
         <button className="profile__edit-avatar" onClick={props.onEditAvatar}>
-          <img crossorigin="anonymous" className="profile__avatar" src={avatar} alt="Аватар" />
+          <img className="profile__avatar" src={avatar} alt="Аватар" />
         </button>
         <div className="profile__info">
           <h1 className="profile__user-name">{name}</h1>
