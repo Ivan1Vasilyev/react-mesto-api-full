@@ -22,7 +22,7 @@ const limiter = rateLimit({
   max: 300,
 });
 
-const allowedCors = ['https://moovies.nomoredomains.work', 'http://localhost:3000'];
+const allowedCors = ['https://moovies.nomoredomains.work/api', 'http://localhost:3000'];
 
 const corsOptions = {
   origin: allowedCors,
@@ -32,18 +32,17 @@ const corsOptions = {
 
 app.use(limiter);
 app.use(cors(corsOptions));
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-    crossOriginEmbedderPolicy: false,
-    frameguard: false,
-  })
-);
+app.use(helmet());
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: false,
+//     crossOriginEmbedderPolicy: false,
+//     frameguard: false,
+//   })
+// );
 app.use(cookieParser());
 app.use(express.json());
 app.use('/api', router);
-// app.use(express.static(path.join(__dirname, 'public')));
-// app.use(router);
 app.use('*', (req, res, next) => {
   next(new NotFoundError(NOT_EXISTS_MESSAGE));
 });
