@@ -1,10 +1,15 @@
 const escape = require('escape-html');
 const Card = require('../models/cards');
-const { NOT_CORRECT_MESSAGE, NOT_EXISTS_MESSAGE, CREATED_CODE } = require('../utils/constants');
+const {
+  INVALID_CARD_ID_MESSAGE,
+  NOT_FOUND_CARD_MESSAGE,
+  CREATED_CODE,
+  NOT_OWNER_MESSAGE,
+} = require('../utils/constants');
 const NotFoundError = require('../errors/not-found');
-const NotValidError = require('../errors/not-valid');
+const InvalidError = require('../errors/Invalid');
 const NotAcceptedError = require('../errors/not-accepted');
-const { getErrorMessages } = require('../utils/handle-errors');
+const { getErrorMessages } = require('../utils/helpers');
 
 const getCards = async (req, res, next) => {
   try {
@@ -27,7 +32,7 @@ const createCard = async (req, res, next) => {
     return res.status(CREATED_CODE).json(newCard);
   } catch (e) {
     if (e.name === 'ValidationError') {
-      return next(new NotValidError(getErrorMessages(e)));
+      return next(new InvalidError(getErrorMessages(e)));
     }
     return next(e);
   }
@@ -37,11 +42,11 @@ const deleteCard = async (req, res, next) => {
   try {
     const deletingCard = await Card.findById(req.params.cardId).populate(['owner', 'likes']);
     if (!deletingCard) {
-      return next(new NotFoundError(`${NOT_EXISTS_MESSAGE}: Несуществующий id карточки`));
+      return next(new NotFoundError(NOT_FOUND_CARD_MESSAGE));
     }
 
     if (req.user._id !== String(deletingCard.owner._id)) {
-      return next(new NotAcceptedError('Вы не можете удалить чужую карточку'));
+      return next(new NotAcceptedError(NOT_OWNER_MESSAGE));
     }
 
     await deletingCard.remove();
@@ -49,7 +54,7 @@ const deleteCard = async (req, res, next) => {
     return res.json(deletingCard);
   } catch (e) {
     if (e.name === 'CastError') {
-      return next(new NotValidError(`${NOT_CORRECT_MESSAGE}: Некорректный id карточки`));
+      return next(new InvalidError(INVALID_CARD_ID_MESSAGE));
     }
     return next(e);
   }
@@ -64,13 +69,13 @@ const handleLike = (method) => async (req, res, next) => {
     ).populate(['owner', 'likes']);
 
     if (!likedCard) {
-      return next(new NotFoundError(`${NOT_EXISTS_MESSAGE}: Несуществующий id карточки`));
+      return next(new NotFoundError(NOT_FOUND_CARD_MESSAGE));
     }
 
     return res.json(likedCard);
   } catch (e) {
     if (e.name === 'CastError') {
-      return next(new NotValidError(`${NOT_CORRECT_MESSAGE}: Некорректный id карточки`));
+      return next(new InvalidError(INVALID_CARD_ID_MESSAGE));
     }
     return next(e);
   }

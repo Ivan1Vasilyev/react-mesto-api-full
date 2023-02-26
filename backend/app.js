@@ -7,11 +7,10 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cors = require('cors');
 const router = require('./routes');
-const { NOT_EXISTS_MESSAGE } = require('./utils/constants');
+const { NOT_FOUND_MESSAGE } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found');
 const centralizedErrorHandler = require('./errors/centralized-error-handler');
 const { limiter, corsOptions, PORT, MONGO_PORT } = require('./utils/configs');
-const { DEFAULT_ROUTE } = require('./utils/constants');
 
 const app = express();
 
@@ -20,9 +19,9 @@ app.use(cors(corsOptions));
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
-app.use(DEFAULT_ROUTE, router);
+app.use('/api', router);
 app.use('*', (req, res, next) => {
-  next(new NotFoundError(NOT_EXISTS_MESSAGE));
+  next(new NotFoundError(NOT_FOUND_MESSAGE));
 });
 
 app.use(errors());

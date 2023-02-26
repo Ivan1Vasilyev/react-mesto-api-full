@@ -1,13 +1,12 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const { USER_ME_ROUTE, USER_AVATAR_ROUTE } = require('../utils/constants');
 const { upDateUserData, upDateUserAvatar, getUserData } = require('../controllers/users');
 const { joiNameOrAbout, joiUrl } = require('../utils/joi-validators');
 
-router.get(USER_ME_ROUTE, getUserData);
+router.get('/me', getUserData);
 
 router.patch(
-  USER_ME_ROUTE,
+  '/me',
   celebrate({
     body: Joi.object().keys({
       name: joiNameOrAbout(true),
@@ -18,7 +17,7 @@ router.patch(
 );
 
 router.patch(
-  USER_AVATAR_ROUTE,
+  '/me/avatar',
   celebrate({ body: Joi.object().keys({ avatar: joiUrl(true) }) }),
   upDateUserAvatar,
 );

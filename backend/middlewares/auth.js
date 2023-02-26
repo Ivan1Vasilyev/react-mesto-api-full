@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
 const NotAuthorizedError = require('../errors/not-authorized');
 const { tokenKey } = require('../utils/configs');
+const { AUTH_ERROR_MESSAGE } = require('../utils/constants');
 
 const auth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (!token) {
-    next(new NotAuthorizedError('Необходима авторизация'));
+    next(new NotAuthorizedError(AUTH_ERROR_MESSAGE));
     return;
   }
 
@@ -14,7 +15,7 @@ const auth = (req, res, next) => {
   try {
     payload = jwt.verify(token, tokenKey);
   } catch (e) {
-    next(new NotAuthorizedError('Необходима авторизация'));
+    next(new NotAuthorizedError(AUTH_ERROR_MESSAGE));
     return;
   }
 

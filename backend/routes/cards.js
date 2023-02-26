@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const { CARD_ID_ROUTE, CARD_LIKES_ROUTE } = require('../utils/constants');
 const { deleteCard, getCards, createCard, likeCard, dislikeCard } = require('../controllers/cards');
 const { joiNameOrAbout, joiUrl, joiId } = require('../utils/joi-validators');
 
@@ -18,19 +17,19 @@ router.post(
 );
 
 router.delete(
-  CARD_ID_ROUTE,
+  '/:cardId',
   celebrate({ params: Joi.object().keys({ cardId: joiId() }) }),
   deleteCard,
 );
 
 router.put(
-  CARD_LIKES_ROUTE,
+  '/:cardId/likes',
   celebrate({ params: Joi.object().keys({ cardId: joiId() }) }),
   likeCard,
 );
 
 router.delete(
-  CARD_LIKES_ROUTE,
+  '/:cardId/likes',
   celebrate({ params: Joi.object().keys({ cardId: joiId() }) }),
   dislikeCard,
 );
