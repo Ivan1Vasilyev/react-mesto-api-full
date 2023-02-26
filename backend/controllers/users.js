@@ -1,27 +1,34 @@
 const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+
 const escape = require('escape-html');
 const User = require('../models/users');
-const { NOT_CORRECT_MESSAGE, NOT_EXISTS_MESSAGE, CREATED_CODE } = require('../utils/constants');
+const {
+  INVALID_USER_ID_MESSAGE,
+  NOT_FOUND_USER_MESSAGE,
+  SAME_EMAIL_MESSAGE,
+  LOGIN_ERROR_MESSAGE,
+  CREATED_CODE,
+  COOKIES_DURATION,
+  LOGIN_MESSAGE,
+  LOGOUT_MESSAGE,
+} = require('../utils/constants');
 const NotFoundError = require('../errors/not-found');
-const NotValidError = require('../errors/not-valid');
+const InvalidError = require('../errors/Invalid');
 const NotAuthorizedError = require('../errors/not-authorized');
 const SameEmailError = require('../errors/same-email');
-const { getErrorMessages } = require('../utils/handle-errors');
-
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { getErrorMessages, jwtSign, setCookies } = require('../utils/helpers');
 
 const getUserData = async (req, res, next) => {
   const { _id } = req.user;
   try {
     const user = await User.findById(_id);
     if (!user) {
-      return next(new NotFoundError(`${NOT_EXISTS_MESSAGE}: Пользователь не найден.`));
+      return next(new NotFoundError(NOT_FOUND_USER_MESSAGE));
     }
     return res.json(user);
   } catch (e) {
     if (e.name === 'CastError') {
-      return next(new NotValidError(`${NOT_CORRECT_MESSAGE}: Некорректный id`));
+      return next(new InvalidError(INVALID_USER_ID_MESSAGE));
     }
     return next(e);
   }
@@ -35,13 +42,13 @@ const updateUser = async (req, res, next, updates) => {
     });
 
     if (!updatedUser) {
-      return next(new NotFoundError(`${NOT_EXISTS_MESSAGE}: Пользователь не найден.`));
+      return next(new NotFoundError(NOT_FOUND_USER_MESSAGE));
     }
 
     return res.json(updatedUser);
   } catch (e) {
     if (e.name === 'ValidationError') {
-      return next(new NotValidError(getErrorMessages(e)));
+      return next(new InvalidError(getErrorMessages(e)));
     }
     return next(e);
   }
@@ -77,10 +84,10 @@ const createUser = async (req, res, next) => {
     });
   } catch (e) {
     if (e.name === 'ValidationError') {
-      return next(new NotValidError(getErrorMessages(e)));
+      return next(new InvalidError(getErrorMessages(e)));
     }
     if (e.code === 11000) {
-      return next(new SameEmailError('Пользователь с таким email уже зарегистрирован'));
+      return next(new SameEmailError(SAME_EMAIL_MESSAGE));
     }
     return next(e);
   }
@@ -91,25 +98,19 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
-      return next(new NotAuthorizedError('Неправильные почта или пароль'));
+      return next(new NotAuthorizedError(LOGIN_ERROR_MESSAGE));
     }
 
     const isLogged = await bcryptjs.compare(password, user.password);
     if (!isLogged) {
-      return next(new NotAuthorizedError('Неправильные почта или пароль'));
+      return next(new NotAuthorizedError(LOGIN_ERROR_MESSAGE));
     }
 
-    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key', {
-      expiresIn: '7d',
-    });
+    const token = jwtSign(user, '7d');
+
     return res
-      .cookie('jwt', token, {
-        maxAge: 3600000 * 24 * 7,
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true,
-      })
-      .json({ message: 'Вы авторизованы!' });
+      .cookie('jwt', token, setCookies(COOKIES_DURATION))
+      .json({ message: LOGIN_MESSAGE });
   } catch (e) {
     return next(e);
   }
@@ -120,24 +121,17 @@ const logout = async (req, res, next) => {
     const { _id } = req.body;
     const user = await User.findById(_id);
     if (!user) {
-      return next(new NotFoundError(`${NOT_EXISTS_MESSAGE}: Пользователь не найден.`));
+      return next(new NotFoundError(NOT_FOUND_USER_MESSAGE));
     }
 
-    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret-key', {
-      expiresIn: -1,
-    });
+    const token = jwtSign(user, 0);
 
     return res
-      .cookie('jwt', token, {
-        maxAge: 0,
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true,
-      })
-      .json({ message: 'Выход из профиля' });
+      .cookie('jwt', token, setCookies(0))
+      .json({ message: LOGOUT_MESSAGE });
   } catch (e) {
     if (e.name === 'CastError') {
-      return next(new NotValidError(`${NOT_CORRECT_MESSAGE}: Некорректный id`));
+      return next(new InvalidError(INVALID_USER_ID_MESSAGE));
     }
     return next(e);
   }

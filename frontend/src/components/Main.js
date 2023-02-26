@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-const Main = (props) => {
+const Main = props => {
   const { name, about, avatar } = useContext(CurrentUserContext);
 
   return (
@@ -31,7 +31,7 @@ const Main = (props) => {
       <section className="elements">
         <ul className="elements__container">
           {props.cards
-            .map((card) => (
+            .map(card => (
               <Card
                 key={card._id}
                 card={card}
