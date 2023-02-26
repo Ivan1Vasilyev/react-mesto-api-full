@@ -16,10 +16,8 @@ const {
 
 const tokenKey = NODE_ENV === 'production' ? JWT_SECRET : jwtPublicKey;
 
-const allowedCors = ['https://moovies.nomoredomains.work/api', 'http://localhost:3000'];
-
 const corsOptions = {
-  origin: allowedCors,
+  origin: ['https://moovies.nomoredomains.work/api', 'http://localhost:3000'],
   optionsSuccessStatus: 200,
   credentials: true,
 };
