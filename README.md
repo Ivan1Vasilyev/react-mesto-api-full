@@ -52,4 +52,4 @@
   - заголовки безопасности автоматически выставляет модуль helmet;
   - мидлвер express-rate-limit ограничивает количество обращений на сервер от одного ip до 300 за 15 минут;
 
-- [Ссылка на проект](https://shaloban.students.nomoredomains.club/)
+- [Ссылка на проект](https://moovies.nomoredomains.work)
