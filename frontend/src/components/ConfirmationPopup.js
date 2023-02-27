@@ -1,7 +1,7 @@
 import PopupWithForm from './PopupWithForm';
 
 const ConfirmationPopup = ({ onSubmit, ...props }) => {
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     onSubmit();
   };
