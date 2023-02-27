@@ -31,7 +31,7 @@ const useForm = (inputs, submitHandler) => {
     validationSchema: Yup.object(Object.keys(inputs).reduce((acc, item) => ({ ...acc, [item]: validators[item] }), {})),
     onSubmit: values => {
       values = Object.keys(values).reduce(
-        (acc, item) => (values[item] ? { ...acc, [item]: validators[item] } : { ...acc }),
+        (acc, item) => (values[item] ? { ...acc, [item]: values[item] } : { ...acc }),
         {}
       );
       setDisabled(true);

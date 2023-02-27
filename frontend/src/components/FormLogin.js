@@ -11,6 +11,14 @@ const FormLogin = ({ isRegister, ...props }) => {
     ? { email: '', password: '', nameReg: '', aboutReg: '', avatarReg: '' }
     : { email: '', password: '' };
 
+  // const handlerSubmit = e => {
+  //   const values = formik.handleSubmit(e);
+  //   return Object.keys(values).reduce(
+  //     (acc, item) => (values[item] ? { ...acc, [item]: values[item] } : { ...acc }),
+  //     {}
+  //   );
+  // };
+
   const { formik, disabled } = useForm(formData, props.onSubmit);
 
   return (
