@@ -71,7 +71,7 @@ const createUser = async (req, res, next) => {
     const newUser = await User.create({
       name: nameReg ? escape(nameReg) : nameReg,
       about: aboutReg ? escape(aboutReg) : aboutReg,
-      avatarReg,
+      avatar: avatarReg,
       email,
       password: hash,
     });
