@@ -36,7 +36,7 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isTooltipOnError, setIsTooltipOnError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [confirmCallback, setConfirmCallback] = useState(() => () => {});
+  const [confirmCallback, setConfirmCallback] = useState({ confirm: null });
   const history = useHistory();
 
   const closeAllPopups = useCallback(() => {
@@ -52,13 +52,13 @@ const App = () => {
   const openEditAvatarPopup = useCallback(() => setEditAvatarPopup(true), []);
   const openEditProfilePopup = useCallback(() => setEditProfilePopup(true), []);
   const openAddPlacePopup = useCallback(() => setAddPlacePopup(true), []);
-  const openDeleteCardPopup = useCallback((id) => {
+  const openDeleteCardPopup = useCallback(id => {
     setConfirmPopupOpen(true);
-    setConfirmCallback(() => () => handleDeleteCard(id));
+    setConfirmCallback({ confirm: () => handleDeleteCard(id) });
   }, []);
   const openLogOutPopup = useCallback(() => {
     setConfirmPopupOpen(true);
-    setConfirmCallback(() => () => onSignOut(currentUser._id));
+    setConfirmCallback({ confirm: () => onSignOut(currentUser._id) });
   }, [currentUser._id]);
 
   const showFullImageClick = useCallback(({ link, name }) => {
@@ -67,11 +67,11 @@ const App = () => {
   }, []);
 
   const handleUpdateUser = useCallback(
-    (userData) =>
+    userData =>
       uxWrap(setTextLoading, async () => {
         try {
           const { name, about } = await api.editUserData(userData);
-          setCurrentUser((state) => ({ ...state, name, about }));
+          setCurrentUser(state => ({ ...state, name, about }));
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка обновления данных пользователя.');
@@ -81,11 +81,11 @@ const App = () => {
   );
 
   const handleUpdateAvatar = useCallback(
-    (newAvatar) =>
+    newAvatar =>
       uxWrap(setTextLoading, async () => {
         try {
           const { avatar } = await api.setUserAvatar(newAvatar);
-          setCurrentUser((state) => ({ ...state, avatar }));
+          setCurrentUser(state => ({ ...state, avatar }));
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка обновления аватара пользователя.');
@@ -95,11 +95,11 @@ const App = () => {
   );
 
   const handleAddPlace = useCallback(
-    (placeData) =>
+    placeData =>
       uxWrap(setTextLoading, async () => {
         try {
           const newCard = await api.addCard(placeData);
-          setCards((state) => [...state, newCard]);
+          setCards(state => [...state, newCard]);
           closeAllPopups();
         } catch (err) {
           handleError(err, 'Ошибка добавления новой карточки.');
@@ -111,20 +111,20 @@ const App = () => {
   const handleCardLike = useCallback(async (cardId, isLiked) => {
     try {
       const updatedCard = await api.toggleLike(cardId, isLiked);
-      setCards((state) => state.map((c) => (c._id === cardId ? updatedCard : c)));
+      setCards(state => state.map(c => (c._id === cardId ? updatedCard : c)));
     } catch (err) {
       handleError(err, 'Ошибка загрузки данных лайка карточки.');
     }
   }, []);
 
   const handleDeleteCard = useCallback(
-    (cardId) =>
+    cardId =>
       uxWrap(
         setTextLoading,
         async () => {
           try {
             await api.deleteCard(cardId);
-            setCards((state) => state.filter((c) => c._id !== cardId));
+            setCards(state => state.filter(c => c._id !== cardId));
             closeAllPopups();
           } catch (err) {
             handleError(err, 'Ошибка удаления карточки.');
@@ -146,7 +146,7 @@ const App = () => {
   }, []);
 
   const onLogin = useCallback(
-    (userData) =>
+    userData =>
       uxWrap(
         setTextLoading,
         async () => {
@@ -165,7 +165,7 @@ const App = () => {
     []
   );
 
-  const onRegister = useCallback((userData) => {
+  const onRegister = useCallback(userData => {
     uxWrap(
       setTextLoading,
       async () => {
@@ -188,7 +188,7 @@ const App = () => {
   }, []);
 
   const onSignOut = useCallback(
-    (id) =>
+    id =>
       uxWrap(
         setTextLoading,
         async () => {
@@ -269,7 +269,7 @@ const App = () => {
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
           />
-          <ConfirmationPopup isOpen={isConfirmPopupOpen} onClose={closeAllPopups} onSubmit={confirmCallback} />
+          <ConfirmationPopup isOpen={isConfirmPopupOpen} onClose={closeAllPopups} onSubmit={confirmCallback.confirm} />
           <ImagePopup isOpen={isImagePopupOpen} onClose={closeAllPopups} card={selectedCard} />
         </PopupOnLoadContext.Provider>
       </CurrentUserContext.Provider>

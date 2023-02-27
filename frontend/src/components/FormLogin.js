@@ -5,7 +5,7 @@ import useForm from '../hooks/useForm';
 import Field from './Field';
 import { ROUTE_SIGN_IN } from '../utils/constants';
 
-const FormLogin = (props) => {
+const FormLogin = props => {
   const textLoading = useContext(PopupOnLoadContext);
 
   const { formik, disabled } = useForm({ email: '', password: '' }, props.onSubmit);
@@ -18,6 +18,7 @@ const FormLogin = (props) => {
           className="form-login__input"
           type="email"
           placeholder="Email"
+          autoComplete="email"
           name="email"
           formik={formik}
           errorClass="form-login"
@@ -26,6 +27,7 @@ const FormLogin = (props) => {
           className="form-login__input"
           type="password"
           placeholder="Password"
+          autoComplete={props.isRegister ? 'new-password' : 'current-password'}
           name="password"
           formik={formik}
           errorClass="form-login"
