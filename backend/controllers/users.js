@@ -67,11 +67,11 @@ const upDateUserAvatar = async (req, res, next) => {
 const createUser = async (req, res, next) => {
   try {
     const hash = await bcryptjs.hash(req.body.password, 10);
-    const { name, about, avatar, email } = req.body;
+    const { nameReg, aboutReg, avatarReg, email } = req.body;
     const newUser = await User.create({
-      name: name ? escape(name) : name,
-      about: about ? escape(about) : about,
-      avatar,
+      name: nameReg ? escape(nameReg) : nameReg,
+      about: aboutReg ? escape(aboutReg) : aboutReg,
+      avatar: avatarReg,
       email,
       password: hash,
     });
@@ -108,9 +108,7 @@ const login = async (req, res, next) => {
 
     const token = jwtSign(user, '7d');
 
-    return res
-      .cookie('jwt', token, setCookies(COOKIES_DURATION))
-      .json({ message: LOGIN_MESSAGE });
+    return res.cookie('jwt', token, setCookies(COOKIES_DURATION)).json({ message: LOGIN_MESSAGE });
   } catch (e) {
     return next(e);
   }
@@ -126,9 +124,7 @@ const logout = async (req, res, next) => {
 
     const token = jwtSign(user, 0);
 
-    return res
-      .cookie('jwt', token, setCookies(0))
-      .json({ message: LOGOUT_MESSAGE });
+    return res.cookie('jwt', token, setCookies(0)).json({ message: LOGOUT_MESSAGE });
   } catch (e) {
     if (e.name === 'CastError') {
       return next(new InvalidError(INVALID_USER_ID_MESSAGE));

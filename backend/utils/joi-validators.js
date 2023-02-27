@@ -18,9 +18,9 @@ const joivalidateRegister = () => celebrate({
   body: Joi.object().keys({
     email: joiEmail(),
     password: joiPassword(),
-    name: joiUserInfo(),
-    about: joiUserInfo(),
-    avatar: joiUrl(),
+    nameReg: joiUserInfo(),
+    aboutReg: joiUserInfo(),
+    avatarReg: joiUrl(),
   }),
 });
 
