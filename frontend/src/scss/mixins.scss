@@ -1,0 +1,8 @@
+@mixin hover($opasity: 0.6) {
+  @media (any-hover: hover) {
+    &:hover {
+      cursor: pointer;
+      opacity: $opasity;
+    }
+  }
+}

@@ -1,0 +1,82 @@
+@use '../../scss/mixins' as m;
+
+.container {
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  grid-template: 282px 79px / auto 62px;
+  grid-template-areas:
+    'img img'
+    'caption like';
+  align-items: center;
+  position: relative;
+}
+
+.caption {
+  margin: 0;
+  padding-left: 22px;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.21;
+  grid-area: caption;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.delete {
+  background-image: url(../../images/delete.svg);
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+  width: 18px;
+  height: 19px;
+  transition: 0.4s;
+
+  @include m.hover;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  grid-area: img;
+
+  &:hover {
+    cursor: pointer;
+    transition: 0.4s;
+  }
+}
+
+.like {
+  width: 22px;
+  height: 19px;
+  border: none;
+  background-image: url(../../images/like.svg);
+  background-color: #fff;
+  justify-self: center;
+  transition: 0.4s;
+
+  @include m.hover(0.5);
+
+  &_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1px;
+  }
+
+  &_active {
+    background-image: url(../../images/like_clicked.svg);
+  }
+
+  &_counter {
+    margin: 5px 0 0;
+    font-size: 13px;
+  }
+}
