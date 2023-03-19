@@ -21,10 +21,10 @@ const Popup = props => {
 
   return (
     <div
-      className={`${styles.container} ${props.backGround} ${props.isOpen && styles.opened}`}
+      className={`${styles.overlay} ${styles[`overlay_${props.backGround}`]} ${props.isOpen && styles.opened}`}
       onClick={handleClickClosePopup}
     >
-      <div className={props.type}>
+      <div className={`${styles[props.container]} ${styles[props.type]}`}>
         {props.children}
         <button
           className={styles.close_icon}
