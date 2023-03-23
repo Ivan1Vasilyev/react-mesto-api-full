@@ -1,4 +1,5 @@
 @use '../../scss/mixins' as m;
+@use '../../scss/variables' as v;
 
 .container {
   flex: 1;
@@ -40,9 +41,9 @@
   min-height: 50px;
   font-size: 18px;
   line-height: 1.22;
-  background: #fff;
+  background: v.$white;
   border-radius: 2px;
-  border-color: #fff;
+  border-color: v.$white;
 
   @include m.hover(0.85);
 

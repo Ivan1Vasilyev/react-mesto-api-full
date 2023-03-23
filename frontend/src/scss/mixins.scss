@@ -29,3 +29,17 @@
     @content;
   }
 }
+
+@mixin card-button($url) {
+  background-image: url($url);
+  @extend %card-button;
+}
+
+@mixin svg-button($url, $size, $color: v.$black) {
+  background: {
+    color: $color;
+    image: url($url);
+    size: $size;
+  }
+  @extend %svg-button;
+}

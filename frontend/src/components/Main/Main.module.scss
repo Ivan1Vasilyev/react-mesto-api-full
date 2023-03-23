@@ -1,4 +1,5 @@
 @use '../../scss/mixins' as m;
+@use '../../scss/variables' as v;
 @use '../../scss/extends';
 
 .container {
@@ -19,11 +20,10 @@
 
 .avatar {
   object-fit: cover;
-  object-position: center center;
+  object-position: center;
   width: 120px;
   height: 120px;
-  border-radius: 50%;
-  z-index: -1;
+  clip-path: circle(50% at 50% 50%);
 }
 
 .add_place__button {
@@ -32,15 +32,9 @@
   width: 150px;
   height: 50px;
   box-sizing: border-box;
-  border: 2px solid #fff;
+  border: 2px solid v.$white;
   border-radius: 2px;
-  background: {
-    color: #000;
-    image: url(../../images/add.svg);
-    repeat: no-repeat;
-    position: center center;
-  }
-
+  @include m.svg-button('../../images/add.svg', 22px);
   @include m.hover;
 
   @media screen and (max-width: 880px) {
@@ -49,7 +43,7 @@
   }
 
   @media screen and (max-width: 440px) {
-    background-image: url(../../images/add_small.svg);
+    background-size: 16px;
     margin-top: 32px;
   }
 }
@@ -71,18 +65,12 @@
     height: 100%;
     opacity: 0;
     transition: opacity 0.4s;
-    background-color: rgba(0, 0, 0, 0);
     left: 0;
     top: 0;
+    @include m.svg-button('../../images/edit.svg', 26px, v.$black-08);
   }
 
   &:hover::after {
-    background: {
-      image: url(../../images/edit-avatar.svg);
-      color: rgba(0, 0, 0, 0.8);
-      position: center center;
-      repeat: no-repeat;
-    }
     opacity: 1;
     cursor: pointer;
   }
@@ -94,13 +82,8 @@
   width: 24px;
   height: 24px;
   box-sizing: border-box;
-  border: 1px solid #fff;
-  background: {
-    color: #000;
-    image: url(../../images/edit.svg);
-    repeat: no-repeat;
-    position: center center;
-  }
+  border: 1px solid v.$white;
+  @include m.svg-button('../../images/edit.svg', 10px);
 
   @include m.hover;
 
@@ -111,7 +94,7 @@
   }
 
   @media screen and (max-width: 440px) {
-    background-image: url(../../images/edit_small.svg);
+    background-size: 8px;
     width: 18px;
     height: 18px;
     top: 7px;

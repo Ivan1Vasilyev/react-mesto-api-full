@@ -1,7 +1,8 @@
-@use '../../scss/mixins.scss' as m;
+@use '../../scss/mixins' as m;
+@use '../../scss/variables' as v;
 
 .background {
-  background-color: #000;
+  background-color: v.$black;
 }
 
 .root {
@@ -9,7 +10,7 @@
   min-width: 320px;
   min-height: 100vh;
   margin: 0 auto;
-  color: #fff;
+  color: v.$white;
   font: {
     family: Inter, Arial, sans-serif;
     style: normal;

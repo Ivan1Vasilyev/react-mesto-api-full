@@ -27,15 +27,13 @@
 }
 
 .delete {
-  background-image: url(../../images/delete.svg);
-  background-color: transparent;
-  border: none;
+  @include m.card-button('../../images/delete.svg');
+  width: 18px;
+  height: 19px;
   position: absolute;
   top: 20px;
   right: 20px;
   z-index: 1;
-  width: 18px;
-  height: 19px;
 
   @include m.hover;
 }
@@ -54,10 +52,7 @@
 .like {
   width: 22px;
   height: 19px;
-  border: none;
-  background-image: url(../../images/like.svg);
-  background-color: v.$white;
-  justify-self: center;
+  @include m.card-button('../../images/like.svg');
 
   @include m.hover(0.5);
 

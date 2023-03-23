@@ -1,4 +1,5 @@
 @use '../../scss/mixins' as m;
+@use '../../scss/variables' as v;
 
 .form {
   @include m.flex-center;
@@ -9,7 +10,7 @@
   font-weight: 900;
   font-size: 24px;
   line-height: 1.21;
-  color: #000;
+  color: v.$black;
 
   @media screen and (max-width: 590px) {
     font-size: 18px;
@@ -26,8 +27,8 @@
 }
 
 .submit_button {
-  color: #fff;
-  background-color: #000;
+  color: v.$white;
+  background-color: v.$black;
   font-size: 18px;
   line-height: 1.22;
   height: 50px;
@@ -42,8 +43,8 @@
   }
 
   &_disabled {
-    background-color: unset;
-    color: #000;
+    background-color: transparent;
+    color: v.$black;
     opacity: 0.2;
 
     &:hover {
