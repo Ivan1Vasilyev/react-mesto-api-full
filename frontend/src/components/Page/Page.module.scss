@@ -1,3 +1,5 @@
+@use '../../scss/mixins.scss' as m;
+
 .background {
   background-color: #000;
 }
@@ -8,9 +10,11 @@
   min-height: 100vh;
   margin: 0 auto;
   color: #fff;
-  display: flex;
-  flex-direction: column;
-  font-family: Inter, Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
+  font: {
+    family: Inter, Arial, sans-serif;
+    style: normal;
+    weight: 400;
+  }
+
+  @include m.flex-center;
 }

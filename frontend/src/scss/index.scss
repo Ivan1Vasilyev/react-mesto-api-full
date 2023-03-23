@@ -1,1 +1,28 @@
+@use './variables.scss' as v;
+@use './mixins.scss' as m;
 
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: 0.4s;
+  @include m.hover;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+input {
+  background-color: transparent;
+  font-size: 14px;
+  line-height: 1.21;
+  border: none;
+  &:-webkit-autofill {
+    transition: background-color 600000s 0s;
+  }
+}
+
+button {
+  transition: 0.4s;
+}

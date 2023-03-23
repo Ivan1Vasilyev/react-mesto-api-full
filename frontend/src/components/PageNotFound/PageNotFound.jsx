@@ -1,14 +1,15 @@
+import styles from './PageNotFound.module.scss';
 import { Link } from 'react-router-dom';
 import image from '../../images/not-found.jpg';
 import littleImage from '../../images/not-found-mobile.jpg';
 
 const PageNotFound = () => (
-  <div className="not-found">
+  <div className={styles.container}>
     <picture>
       <source srcSet={image} media="(min-width: 590px)" />
-      <img className="not-found__image" src={littleImage} alt="Страница не найдена" />
+      <img className={styles.image} src={littleImage} alt="Страница не найдена" />
     </picture>
-    <Link className="not-found__link" to="/">
+    <Link className={styles.link} to="/">
       ← Назад
     </Link>
   </div>

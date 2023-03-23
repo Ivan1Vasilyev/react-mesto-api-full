@@ -1,14 +1,11 @@
-.in-popup {
-  font-size: 14px;
-  line-height: 1.21;
-  border: none;
-  padding: 0 0 9px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+@use '../../scss/mixins.scss' as m;
+@use '../../scss/variables.scss' as v;
 
-  &::placeholder {
-    color: #c4c4c4;
-    font: 14px/1.21;
-  }
+.in-popup {
+  padding: 0 0 9px;
+  border-bottom: 1px solid rgba(v.$black, 0.2);
+
+  @include m.input(v.$black, v.$placeholder-popup);
 
   &_error {
     border-bottom: 1px solid rgba(255, 0, 0, 1);
@@ -23,20 +20,11 @@
 }
 
 .in-login {
-  background-color: transparent;
   font-weight: 500;
-  font-size: 14px;
-  line-height: 1.21;
-  color: #ccc;
-  border: none;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid v.$login-gray;
   padding: 7px 0;
 
-  &:-webkit-autofill {
-    transition-delay: 36000s;
-  }
-
-  &::placeholder {
+  @include m.input(v.$white, v.$login-gray) {
     font-weight: 400;
   }
 

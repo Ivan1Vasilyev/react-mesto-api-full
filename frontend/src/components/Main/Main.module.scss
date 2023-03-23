@@ -1,4 +1,5 @@
 @use '../../scss/mixins' as m;
+@use '../../scss/extends';
 
 .container {
   flex: 1;
@@ -33,11 +34,12 @@
   box-sizing: border-box;
   border: 2px solid #fff;
   border-radius: 2px;
-  background-color: #000;
-  background-image: url(../../images/add.svg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  transition: 0.4s;
+  background: {
+    color: #000;
+    image: url(../../images/add.svg);
+    repeat: no-repeat;
+    position: center center;
+  }
 
   @include m.hover;
 
@@ -75,11 +77,13 @@
   }
 
   &:hover::after {
-    background-image: url(../../images/edit-avatar.svg);
-    background-color: rgba(0, 0, 0, 0.8);
+    background: {
+      image: url(../../images/edit-avatar.svg);
+      color: rgba(0, 0, 0, 0.8);
+      position: center center;
+      repeat: no-repeat;
+    }
     opacity: 1;
-    background-position: center center;
-    background-repeat: no-repeat;
     cursor: pointer;
   }
 }
@@ -91,11 +95,12 @@
   height: 24px;
   box-sizing: border-box;
   border: 1px solid #fff;
-  background-color: #000;
-  background-image: url(../../images/edit.svg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  transition: 0.4s;
+  background: {
+    color: #000;
+    image: url(../../images/edit.svg);
+    repeat: no-repeat;
+    position: center center;
+  }
 
   @include m.hover;
 
@@ -125,9 +130,9 @@
 
   @media screen and (max-width: 880px) {
     display: flex;
-    position: relative;
     flex-direction: column;
     align-items: center;
+    position: relative;
     margin-left: 19px;
     margin-right: 19px;
   }
@@ -144,9 +149,7 @@
   font-size: 18px;
   line-height: 1.22;
   grid-area: info;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  @extend %hide-text;
 
   @media screen and (max-width: 880px) {
     max-width: 290px;
@@ -168,9 +171,7 @@
   font-size: 42px;
   line-height: 1.14;
   grid-area: name;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  @extend %hide-text;
 
   @media screen and (max-width: 880px) {
     font-size: 36px;
@@ -186,9 +187,7 @@
 }
 
 .cards_container {
-  padding: 0;
   margin: 52px auto 67px;
-  list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, 282px);
   gap: 20px 17px;

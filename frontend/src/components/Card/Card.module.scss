@@ -1,8 +1,10 @@
 @use '../../scss/mixins' as m;
+@use '../../scss/variables.scss' as v;
+@use '../../scss/extends.scss';
 
 .container {
-  background-color: #fff;
-  color: #000;
+  background-color: v.$white;
+  color: v.$black;
   border-radius: 10px;
   overflow: hidden;
   display: grid;
@@ -21,9 +23,7 @@
   font-size: 24px;
   line-height: 1.21;
   grid-area: caption;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  @extend %hide-text;
 }
 
 .delete {
@@ -36,7 +36,6 @@
   z-index: 1;
   width: 18px;
   height: 19px;
-  transition: 0.4s;
 
   @include m.hover;
 }
@@ -49,7 +48,6 @@
 
   &:hover {
     cursor: pointer;
-    transition: 0.4s;
   }
 }
 
@@ -58,16 +56,13 @@
   height: 19px;
   border: none;
   background-image: url(../../images/like.svg);
-  background-color: #fff;
+  background-color: v.$white;
   justify-self: center;
-  transition: 0.4s;
 
   @include m.hover(0.5);
 
   &_container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include m.flex-center(true);
     margin-top: 1px;
   }
 

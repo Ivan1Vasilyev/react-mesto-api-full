@@ -1,8 +1,7 @@
 @use '../../scss/mixins' as m;
 
 .form {
-  display: flex;
-  flex-direction: column;
+  @include m.flex-center;
 }
 
 .title {

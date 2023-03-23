@@ -63,10 +63,9 @@
   position: relative;
   box-sizing: border-box;
   padding: 0 36px;
-  display: flex;
-  flex-direction: column;
   border-radius: 10px;
   cursor: default;
+  @include m.flex-center;
 
   @media screen and (max-width: 590px) {
     width: 282px;

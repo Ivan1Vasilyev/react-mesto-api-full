@@ -7,13 +7,7 @@ const PopupWithForm = props => {
   const textLoading = useContext(PopupOnLoadContext);
 
   return (
-    <Popup
-      onClose={props.onClose}
-      container="form"
-      type={`form_${props.type}`}
-      // type={`${styles.container} ${styles[`container_${props.type}`]}`}
-      isOpen={props.isOpen}
-    >
+    <Popup onClose={props.onClose} container="form" type={`form_${props.type}`} isOpen={props.isOpen}>
       <form className={styles.form} name={props.name} onSubmit={props.onSubmit} noValidate>
         <h2 className={`${styles.title} ${styles[`title_${props.titleClassType}`]}`}>{props.title}</h2>
         {props.children}

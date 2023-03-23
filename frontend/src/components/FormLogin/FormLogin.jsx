@@ -62,9 +62,7 @@ const FormLogin = ({ isRegister, ...props }) => {
       {isRegister && (
         <p className={styles.caption}>
           {'Уже зарегистрированы? '}
-          <Link to={ROUTE_SIGN_IN} className={styles.link}>
-            Войти
-          </Link>
+          <Link to={ROUTE_SIGN_IN}>Войти</Link>
         </p>
       )}
     </div>

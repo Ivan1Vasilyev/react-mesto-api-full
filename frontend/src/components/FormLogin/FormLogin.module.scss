@@ -2,16 +2,12 @@
 
 .container {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include m.flex-center(true);
 }
 
 .form {
   width: 358px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  @include m.flex-center;
   margin-top: 61px;
 
   @media screen and (max-width: 440px) {
@@ -23,6 +19,7 @@
 .title {
   margin: 0 auto 44px;
   font-weight: 900;
+  font-size: 24px;
   line-height: 1.2;
 
   @media screen and (max-width: 440px) {
@@ -46,7 +43,6 @@
   background: #fff;
   border-radius: 2px;
   border-color: #fff;
-  transition: 0.4s;
 
   @include m.hover(0.85);
 
@@ -66,11 +62,4 @@
   @media screen and (max-width: 440px) {
     margin-top: 21px;
   }
-}
-
-.link {
-  color: #fff;
-  text-decoration: none;
-
-  @include m.hover;
 }

@@ -1,8 +1,31 @@
+@use './extends.scss';
+@use './variables.scss' as v;
+
 @mixin hover($opasity: 0.6) {
   @media (any-hover: hover) {
     &:hover {
       cursor: pointer;
       opacity: $opasity;
     }
+  }
+}
+
+@mixin flex-center($center: false) {
+  @extend %flex-column;
+  @if $center {
+    align-items: center;
+  }
+}
+
+@mixin input($color: v.$white, $placeholder) {
+  color: $color;
+  &:-webkit-autofill {
+    -webkit-text-fill-color: $color;
+    caret-color: $color;
+  }
+
+  &::placeholder {
+    color: $placeholder;
+    @content;
   }
 }
