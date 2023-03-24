@@ -13,15 +13,12 @@
 
 .message {
   margin: 32px 0 0;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 1.21;
   text-align: center;
   color: v.$black;
+  @include m.font(24px, 1.21, 900);
 
   @include m.tablet {
     margin-top: 40px;
-    font-size: 20px;
-    line-height: 1.2;
+    @include m.font(20px, 1.2);
   }
 }

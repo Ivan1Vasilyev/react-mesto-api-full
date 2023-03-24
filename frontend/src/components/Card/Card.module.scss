@@ -19,15 +19,13 @@
 .caption {
   margin: 0;
   padding-left: 22px;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 1.21;
   grid-area: caption;
+
+  @include m.font(24px, 1.21, 900);
   @extend %hide-text;
 }
 
 .delete {
-  @include m.card-button('../../images/delete.svg');
   width: 18px;
   height: 19px;
   position: absolute;
@@ -35,6 +33,7 @@
   right: 20px;
   z-index: 1;
 
+  @include m.card-button('../../images/delete.svg');
   @include m.hover;
 }
 
@@ -52,13 +51,13 @@
 .like {
   width: 22px;
   height: 19px;
-  @include m.card-button('../../images/like.svg');
 
+  @include m.card-button('../../images/like.svg');
   @include m.hover(0.5);
 
   &_container {
-    @include m.flex-center(true);
     margin-top: 1px;
+    @include m.flex-center(true);
   }
 
   &_active {

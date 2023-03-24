@@ -1,3 +1,5 @@
+@use '../../scss/mixins' as m;
+
 .wrapper {
   margin: 0;
 }
@@ -9,9 +11,8 @@
 }
 
 .caption {
-  font-size: 12px;
-  line-height: 1.25;
   position: absolute;
   left: 0;
   bottom: -20px;
+  @include m.font(12px, 1.25);
 }

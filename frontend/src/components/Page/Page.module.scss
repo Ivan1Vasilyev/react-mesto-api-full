@@ -6,12 +6,12 @@
 }
 
 .root {
-  max-width: 880px;
+  max-width: v.$breakpoint-laptop;
   min-width: 320px;
   min-height: 100vh;
   margin: 0 auto;
   color: v.$white;
-  font-family: Inter, Arial, sans-serif;
+  font-family: v.$main-font;
 
   @include m.flex-center;
 }

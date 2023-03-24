@@ -19,9 +19,7 @@
 
 .title {
   margin: 0 auto 44px;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 1.2;
+  @include m.font(24px, 1.2, 900);
 
   @include m.mobile {
     font-size: 20px;
@@ -39,12 +37,11 @@
 .submit_button {
   margin-top: 191px;
   min-height: 50px;
-  font-size: 18px;
-  line-height: 1.22;
   background: v.$white;
   border-radius: 2px;
   border-color: v.$white;
 
+  @include m.font(18px, 1.22);
   @include m.hover(0.85);
 
   @include m.mobile {
@@ -57,8 +54,7 @@
 
 .caption {
   margin: 15px 0 0;
-  font-size: 14px;
-  line-height: 1.21;
+  @include m.font(14px, 1.21);
 
   @include m.mobile {
     margin-top: 21px;

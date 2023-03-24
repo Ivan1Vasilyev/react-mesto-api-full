@@ -1,3 +1,4 @@
+@use 'sass:list';
 @use './extends.scss';
 @use './variables.scss' as v;
 
@@ -65,5 +66,13 @@
 @mixin mobile {
   @media screen and (max-width: v.$breakpoint-mobile) {
     @content;
+  }
+}
+
+@mixin font($size, $height, $weight: false) {
+  font-size: $size;
+  line-height: $height;
+  @if $weight {
+    font-weight: $weight;
   }
 }
