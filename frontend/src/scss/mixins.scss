@@ -43,3 +43,27 @@
   }
   @extend %svg-button;
 }
+
+@mixin desktop {
+  @media screen and (max-width: v.$breakpoint-desktop) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media screen and (max-width: v.$breakpoint-laptop) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: v.$breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: v.$breakpoint-mobile) {
+    @content;
+  }
+}

@@ -1,4 +1,3 @@
-import '../index.scss';
 import { useEffect, useState, useCallback } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import Page from './Page';

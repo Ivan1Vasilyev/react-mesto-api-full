@@ -12,7 +12,7 @@
   line-height: 1.21;
   color: v.$black;
 
-  @media screen and (max-width: 590px) {
+  @include m.tablet {
     font-size: 18px;
     margin: 26px 0 75px;
   }
@@ -20,7 +20,7 @@
   &_confirm {
     margin-bottom: 14px;
 
-    @media screen and (max-width: 590px) {
+    @include m.tablet {
       margin-bottom: 35px;
     }
   }
@@ -37,7 +37,7 @@
 
   @include m.hover(0.8);
 
-  @media screen and (max-width: 590px) {
+  @include m.tablet {
     font-size: 14px;
     margin-top: 14px;
   }

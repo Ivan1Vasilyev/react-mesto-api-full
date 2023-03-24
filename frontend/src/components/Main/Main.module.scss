@@ -12,7 +12,7 @@
   justify-items: start;
   align-items: center;
 
-  @media screen and (max-width: 880px) {
+  @include m.laptop {
     grid-template: repeat(3, auto) / 1fr;
     justify-items: center;
   }
@@ -37,12 +37,12 @@
   @include m.svg-button('../../images/add.svg', 22px);
   @include m.hover;
 
-  @media screen and (max-width: 880px) {
+  @include m.laptop {
     justify-self: auto;
     width: 282px;
   }
 
-  @media screen and (max-width: 440px) {
+  @include m.mobile {
     background-size: 16px;
     margin-top: 32px;
   }
@@ -87,13 +87,13 @@
 
   @include m.hover;
 
-  @media screen and (max-width: 880px) {
+  @include m.laptop {
     position: absolute;
     top: 12px;
     right: -40px;
   }
 
-  @media screen and (max-width: 440px) {
+  @include m.mobile {
     background-size: 8px;
     width: 18px;
     height: 18px;
@@ -111,7 +111,7 @@
   align-items: baseline;
   max-width: 570px;
 
-  @media screen and (max-width: 880px) {
+  @include m.laptop {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -120,7 +120,7 @@
     margin-right: 19px;
   }
 
-  @media screen and (max-width: 440px) {
+  @include m.mobile {
     margin-top: 27px;
     max-width: 282px;
   }
@@ -134,12 +134,12 @@
   grid-area: info;
   @extend %hide-text;
 
-  @media screen and (max-width: 880px) {
+  @include m.laptop {
     max-width: 290px;
     text-align: center;
   }
 
-  @media screen and (max-width: 440px) {
+  @include m.mobile {
     max-width: 208px;
     font-size: 14px;
     line-height: 1.21;
@@ -156,13 +156,13 @@
   grid-area: name;
   @extend %hide-text;
 
-  @media screen and (max-width: 880px) {
+  @include m.laptop {
     font-size: 36px;
     max-width: 290px;
     text-align: center;
   }
 
-  @media screen and (max-width: 440px) {
+  @include m.mobile {
     font-size: 27px;
     line-height: 1.22;
     max-width: 208px;
@@ -175,7 +175,7 @@
   grid-template-columns: repeat(auto-fit, 282px);
   gap: 20px 17px;
 
-  @media screen and (max-width: 880px) {
+  @include m.laptop {
     margin: 36px 19px 48px;
     justify-content: center;
   }

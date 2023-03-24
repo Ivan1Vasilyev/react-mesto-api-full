@@ -11,7 +11,7 @@
   @include m.flex-center;
   margin-top: 61px;
 
-  @media screen and (max-width: 440px) {
+  @include m.mobile {
     width: 260px;
     margin: 40px 30px 0;
   }
@@ -23,13 +23,13 @@
   font-size: 24px;
   line-height: 1.2;
 
-  @media screen and (max-width: 440px) {
+  @include m.mobile {
     font-size: 20px;
     margin-bottom: 34px;
   }
 }
 
-@media screen and (max-width: 440px) {
+@include m.mobile {
   .form-login__title {
     font-size: 20px;
     margin-bottom: 34px;
@@ -47,7 +47,7 @@
 
   @include m.hover(0.85);
 
-  @media screen and (max-width: 440px) {
+  @include m.mobile {
     margin-top: 150px;
     min-height: 46px;
     font-size: 16px;
@@ -60,7 +60,7 @@
   font-size: 14px;
   line-height: 1.21;
 
-  @media screen and (max-width: 440px) {
+  @include m.mobile {
     margin-top: 21px;
   }
 }

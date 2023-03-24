@@ -2,7 +2,7 @@
 @use '../../scss/variables' as v;
 
 .overlay {
-  transition: opacity 0.7s ease-out, top 0.7s step-end; //TODO
+  transition: opacity 0.7s ease-out, top 0.7s step-end;
   opacity: 0;
   display: flex;
   align-items: center;
@@ -38,7 +38,7 @@
 
   @include m.hover;
 
-  @media screen and (max-width: 590px) {
+  @include m.tablet {
     width: 20px;
     height: 20px;
     top: -36px;
@@ -46,7 +46,7 @@
   }
 }
 
-@media screen and (max-width: 590px) {
+@include m.tablet {
   .popup__close-icon {
     width: 20px;
     height: 20px;
@@ -66,7 +66,7 @@
   cursor: default;
   @include m.flex-center;
 
-  @media screen and (max-width: 590px) {
+  @include m.tablet {
     width: 282px;
     min-height: 322px;
     padding: 0 22px;
@@ -84,7 +84,7 @@
     align-items: center;
     padding-bottom: 30px;
 
-    @media screen and (max-width: 590px) {
+    @include m.tablet {
       min-height: 308px;
       padding-bottom: 20px;
     }

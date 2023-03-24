@@ -11,11 +11,7 @@
   min-height: 100vh;
   margin: 0 auto;
   color: v.$white;
-  font: {
-    family: Inter, Arial, sans-serif;
-    style: normal;
-    weight: 400;
-  }
+  font-family: Inter, Arial, sans-serif;
 
   @include m.flex-center;
 }
