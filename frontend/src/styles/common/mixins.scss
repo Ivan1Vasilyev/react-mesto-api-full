@@ -75,3 +75,15 @@
     font-weight: $weight;
   }
 }
+
+@mixin font-face($weight, $url) {
+  @font-face {
+    font: {
+      family: 'Inter';
+      style: normal;
+      display: swap;
+      weight: $weight;
+    }
+    src: url('#{$url}2') format('woff2'), url($url) format('woff');
+  }
+}
