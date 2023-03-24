@@ -1,10 +1,8 @@
-@use '../../scss/mixins' as m;
-@use '../../scss/variables.scss' as v;
-@use '../../scss/extends.scss';
+@use '../../styles/common/main' as m;
 
 .container {
-  background-color: v.$white;
-  color: v.$black;
+  background-color: m.$white;
+  color: m.$black;
   border-radius: 10px;
   overflow: hidden;
   display: grid;

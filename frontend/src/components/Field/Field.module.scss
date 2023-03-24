@@ -1,17 +1,16 @@
-@use '../../scss/mixins.scss' as m;
-@use '../../scss/variables.scss' as v;
+@use '../../styles/common/main' as m;
 
 .in-popup {
   padding: 0 0 9px;
-  border-bottom: 1px solid v.$black-02;
+  border-bottom: 1px solid m.$black-02;
 
-  @include m.input(v.$black, v.$placeholder-popup);
+  @include m.input(m.$black, m.$placeholder-popup);
 
   &_error {
-    border-bottom: 1px solid v.$red-error;
+    border-bottom: 1px solid m.$red-error;
 
     &_message {
-      color: v.$red-error;
+      color: m.$red-error;
       min-height: 30px;
       @include m.font(12px, 1.2);
     }
@@ -20,15 +19,15 @@
 
 .in-login {
   font-weight: 500;
-  border-bottom: 2px solid v.$login-gray;
+  border-bottom: 2px solid m.$login-gray;
   padding: 7px 0;
 
-  @include m.input(v.$white, v.$login-gray) {
+  @include m.input(m.$white, m.$login-gray) {
     font-weight: 400;
   }
 
   &_error_message {
-    color: v.$red-error-08;
+    color: m.$red-error-08;
     padding-top: 4px;
     min-height: 20px;
     @include m.font(12px, 1.2);

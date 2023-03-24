@@ -1,6 +1,4 @@
-@use '../../scss/mixins' as m;
-@use '../../scss/variables' as v;
-@use '../../scss/extends';
+@use '../../styles/common/main' as m;
 
 .container {
   flex: 1;
@@ -32,7 +30,7 @@
   width: 150px;
   height: 50px;
   box-sizing: border-box;
-  border: 2px solid v.$white;
+  border: 2px solid m.$white;
   border-radius: 2px;
 
   @include m.svg-button('../../images/add.svg', 22px);
@@ -69,7 +67,7 @@
     left: 0;
     top: 0;
 
-    @include m.svg-button('../../images/edit.svg', 26px, v.$black-08);
+    @include m.svg-button('../../images/edit.svg', 26px, m.$black-08);
   }
 
   &:hover::after {
@@ -84,7 +82,7 @@
   width: 24px;
   height: 24px;
   box-sizing: border-box;
-  border: 1px solid v.$white;
+  border: 1px solid m.$white;
 
   @include m.svg-button('../../images/edit.svg', 10px);
   @include m.hover;

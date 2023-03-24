@@ -1,5 +1,6 @@
-@use './variables.scss' as v;
-@use './mixins.scss' as m;
+@use './common/main' as m;
+@use './vendor/normalize';
+@use './vendor/fonts/fonts';
 
 a {
   text-decoration: none;
@@ -14,9 +15,9 @@ ul {
 
 input {
   background-color: transparent;
-  font-size: 14px;
-  line-height: 1.21;
   border: none;
+  @include m.font(14px, 1.21);
+
   &:-webkit-autofill {
     transition: background-color 600000s 0s;
   }

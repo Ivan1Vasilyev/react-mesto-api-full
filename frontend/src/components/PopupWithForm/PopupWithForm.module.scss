@@ -1,5 +1,4 @@
-@use '../../scss/mixins' as m;
-@use '../../scss/variables' as v;
+@use '../../styles/common/main' as m;
 
 .form {
   @include m.flex-center;
@@ -7,7 +6,7 @@
 
 .title {
   margin: 34px 0 48px;
-  color: v.$black;
+  color: m.$black;
   @include m.font(24px, 1.21, 900);
 
   @include m.tablet {
@@ -25,8 +24,8 @@
 }
 
 .submit_button {
-  color: v.$white;
-  background-color: v.$black;
+  color: m.$white;
+  background-color: m.$black;
   height: 50px;
   margin-top: 18px;
   border-radius: 2px;
@@ -41,7 +40,7 @@
 
   &_disabled {
     background-color: transparent;
-    color: v.$black;
+    color: m.$black;
     opacity: 0.2;
 
     &:hover {

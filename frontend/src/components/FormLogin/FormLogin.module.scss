@@ -1,5 +1,4 @@
-@use '../../scss/mixins' as m;
-@use '../../scss/variables' as v;
+@use '../../styles/common/main' as m;
 
 .container {
   flex: 1;
@@ -37,9 +36,9 @@
 .submit_button {
   margin-top: 191px;
   min-height: 50px;
-  background: v.$white;
+  background: m.$white;
   border-radius: 2px;
-  border-color: v.$white;
+  border-color: m.$white;
 
   @include m.font(18px, 1.22);
   @include m.hover(0.85);

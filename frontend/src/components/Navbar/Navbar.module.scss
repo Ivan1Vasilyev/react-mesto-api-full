@@ -1,6 +1,4 @@
-@use '../../scss/mixins' as m;
-@use '../../scss/variables.scss' as v;
-@use '../../scss/extends';
+@use '../../styles/common/main' as m;
 
 .container {
   display: flex;
@@ -16,7 +14,7 @@
   @include m.hover;
 
   @include m.desktop {
-    margin-right: calc((v.$breakpoint-desktop - 100vw) / 2);
+    margin-right: calc((m.$breakpoint-desktop - 100vw) / 2);
   }
 
   @include m.laptop {
@@ -28,7 +26,7 @@
   }
 
   &_logged {
-    color: v.$light-gray;
+    color: m.$light-gray;
   }
 
   &_showed {

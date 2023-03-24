@@ -1,5 +1,4 @@
-@use '../../scss/variables' as v;
-@use '../../scss/mixins' as m;
+@use '../../styles/common/main' as m;
 
 .image {
   width: 120px;
@@ -14,7 +13,7 @@
 .message {
   margin: 32px 0 0;
   text-align: center;
-  color: v.$black;
+  color: m.$black;
   @include m.font(24px, 1.21, 900);
 
   @include m.tablet {
