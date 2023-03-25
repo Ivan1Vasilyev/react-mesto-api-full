@@ -1,0 +1,12 @@
+@use '../../styles/common/main' as m;
+
+.text {
+  margin: 0 auto 60px;
+  color: m.$gray;
+  @include m.font(18px, 1.22);
+
+  @include m.desktop {
+    margin: 0 19px 36px;
+    font-size: 14px;
+  }
+}

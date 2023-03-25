@@ -1,0 +1,51 @@
+@use '../../styles/common/main' as m;
+
+.form {
+  @include m.flex-center;
+}
+
+.title {
+  margin: 34px 0 48px;
+  color: m.$black;
+  @include m.font(24px, 1.21, 900);
+
+  @include m.tablet {
+    font-size: 18px;
+    margin: 26px 0 75px;
+  }
+
+  &_confirm {
+    margin-bottom: 14px;
+
+    @include m.tablet {
+      margin-bottom: 35px;
+    }
+  }
+}
+
+.submit_button {
+  color: m.$white;
+  background-color: m.$black;
+  height: 50px;
+  margin-top: 18px;
+  border-radius: 2px;
+
+  @include m.font(18px, 1.22);
+  @include m.hover(0.8);
+
+  @include m.tablet {
+    font-size: 14px;
+    margin-top: 14px;
+  }
+
+  &_disabled {
+    background-color: transparent;
+    color: m.$black;
+    opacity: 0.2;
+
+    &:hover {
+      cursor: default;
+      opacity: 0.2;
+    }
+  }
+}

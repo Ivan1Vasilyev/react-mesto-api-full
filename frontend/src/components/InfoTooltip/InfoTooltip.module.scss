@@ -1,0 +1,23 @@
+@use '../../styles/common/main' as m;
+
+.image {
+  width: 120px;
+  height: 120px;
+  margin-top: 60px;
+
+  @include m.tablet {
+    margin-top: 50px;
+  }
+}
+
+.message {
+  margin: 32px 0 0;
+  text-align: center;
+  color: m.$black;
+  @include m.font(24px, 1.21, 900);
+
+  @include m.tablet {
+    margin-top: 40px;
+    @include m.font(20px, 1.2);
+  }
+}

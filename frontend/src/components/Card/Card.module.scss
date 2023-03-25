@@ -1,0 +1,69 @@
+@use '../../styles/common/main' as m;
+
+.container {
+  background-color: m.$white;
+  color: m.$black;
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  grid-template: 282px 79px / auto 62px;
+  grid-template-areas:
+    'img img'
+    'caption like';
+  align-items: center;
+  position: relative;
+}
+
+.caption {
+  margin: 0;
+  padding-left: 22px;
+  grid-area: caption;
+
+  @include m.font(24px, 1.21, 900);
+  @extend %hide-text;
+}
+
+.delete {
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+
+  @include m.card-button('../../images/delete.svg');
+  @include m.hover;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  grid-area: img;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.like {
+  width: 22px;
+  height: 19px;
+
+  @include m.card-button('../../images/like.svg');
+  @include m.hover(0.5);
+
+  &_container {
+    margin-top: 1px;
+    @include m.flex-center(true);
+  }
+
+  &_active {
+    background-image: url(../../images/like_clicked.svg);
+  }
+
+  &_counter {
+    margin: 5px 0 0;
+    font-size: 13px;
+  }
+}

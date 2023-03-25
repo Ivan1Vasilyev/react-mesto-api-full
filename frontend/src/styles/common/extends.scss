@@ -1,0 +1,28 @@
+@use './variables' as v;
+
+%hide-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+%flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%gray-line {
+  border-bottom: 1px solid rgba(v.$gray, 0.7);
+}
+
+%card-button {
+  border: none;
+  background-color: transparent;
+}
+
+%svg-button {
+  background: {
+    repeat: no-repeat;
+    position: center;
+  }
+}

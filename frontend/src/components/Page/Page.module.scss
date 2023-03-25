@@ -1,0 +1,16 @@
+@use '../../styles/common/main' as m;
+
+.background {
+  background-color: m.$black;
+}
+
+.root {
+  max-width: m.$breakpoint-laptop;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0 auto;
+  color: m.$white;
+  font-family: m.$main-font;
+
+  @include m.flex-center;
+}

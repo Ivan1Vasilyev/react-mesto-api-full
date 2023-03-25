@@ -1,0 +1,61 @@
+@use '../../styles/common/main' as m;
+
+.container {
+  flex: 1;
+  @include m.flex-center(true);
+}
+
+.form {
+  width: 358px;
+  @include m.flex-center;
+  margin-top: 61px;
+
+  @include m.mobile {
+    width: 260px;
+    margin: 40px 30px 0;
+  }
+}
+
+.title {
+  margin: 0 auto 44px;
+  @include m.font(24px, 1.2, 900);
+
+  @include m.mobile {
+    font-size: 20px;
+    margin-bottom: 34px;
+  }
+}
+
+@include m.mobile {
+  .form-login__title {
+    font-size: 20px;
+    margin-bottom: 34px;
+  }
+}
+
+.submit_button {
+  margin-top: 191px;
+  min-height: 50px;
+  background: m.$white;
+  border-radius: 2px;
+  border-color: m.$white;
+
+  @include m.font(18px, 1.22);
+  @include m.hover(0.85);
+
+  @include m.mobile {
+    margin-top: 150px;
+    min-height: 46px;
+    font-size: 16px;
+    line-height: 1.19;
+  }
+}
+
+.caption {
+  margin: 15px 0 0;
+  @include m.font(14px, 1.21);
+
+  @include m.mobile {
+    margin-top: 21px;
+  }
+}

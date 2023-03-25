@@ -1,0 +1,71 @@
+@use '../../styles/common/main' as m;
+
+.container {
+  display: flex;
+  @include m.font(18px, 1.22);
+
+  @include m.mobile {
+    @include m.font(14px, 1.21);
+  }
+}
+
+.button {
+  margin-top: 8px;
+  @include m.hover;
+
+  @include m.desktop {
+    margin-right: calc((m.$breakpoint-desktop - 100vw) / 2);
+  }
+
+  @include m.laptop {
+    margin: 5px 32px 0 0;
+  }
+
+  @include m.tablet {
+    margin-right: 9px;
+  }
+
+  &_logged {
+    color: m.$light-gray;
+  }
+
+  &_showed {
+    margin-right: 27px;
+  }
+}
+
+.email {
+  margin: 8px 24px 0 0;
+  font-weight: 500;
+
+  @include m.laptop {
+    margin-top: 5px;
+  }
+
+  @include m.tablet {
+    margin: 4px 9px 0 0;
+  }
+}
+
+.hidden {
+  @include m.tablet {
+    display: none;
+  }
+}
+
+.showed {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 0;
+  min-height: 142px;
+  box-sizing: border-box;
+
+  @include m.font(18px, 1.22);
+  @extend %gray-line;
+
+  @include m.tablet {
+    display: flex;
+  }
+}
