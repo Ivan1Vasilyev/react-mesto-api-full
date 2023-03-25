@@ -1,0 +1,18 @@
+@use '../../styles/common/main' as m;
+
+.wrapper {
+  margin: 0;
+}
+
+.image {
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: contain;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+  @include m.font(12px, 1.25);
+}

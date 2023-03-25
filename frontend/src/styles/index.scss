@@ -1,0 +1,29 @@
+@use './common/main' as m;
+@use './vendor/normalize';
+@use './vendor/fonts/fonts';
+
+a {
+  text-decoration: none;
+  color: inherit;
+  @include m.hover;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  @include m.font(14px, 1.21);
+
+  &:-webkit-autofill {
+    transition: background-color 600000s 0s;
+  }
+}
+
+button,
+a {
+  transition: 0.4s;
+}
